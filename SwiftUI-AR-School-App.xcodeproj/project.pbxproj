@@ -14,6 +14,8 @@
 		079FD6162B9A7012008E07EA /* SwiftUI_AR_School_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6152B9A7012008E07EA /* SwiftUI_AR_School_AppTests.swift */; };
 		079FD6202B9A7012008E07EA /* SwiftUI_AR_School_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD61F2B9A7012008E07EA /* SwiftUI_AR_School_AppUITests.swift */; };
 		079FD6222B9A7012008E07EA /* SwiftUI_AR_School_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6212B9A7012008E07EA /* SwiftUI_AR_School_AppUITestsLaunchTests.swift */; };
+		079FD62F2B9A7239008E07EA /* SearchTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD62E2B9A7239008E07EA /* SearchTextfield.swift */; };
+		079FD6322B9B8BA6008E07EA /* DestinationPickerWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6312B9B8BA6008E07EA /* DestinationPickerWheel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		079FD61B2B9A7012008E07EA /* SwiftUI-AR-School-AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftUI-AR-School-AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		079FD61F2B9A7012008E07EA /* SwiftUI_AR_School_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_AR_School_AppUITests.swift; sourceTree = "<group>"; };
 		079FD6212B9A7012008E07EA /* SwiftUI_AR_School_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_AR_School_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		079FD62E2B9A7239008E07EA /* SearchTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextfield.swift; sourceTree = "<group>"; };
+		079FD6312B9B8BA6008E07EA /* DestinationPickerWheel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationPickerWheel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,7 @@
 		079FD6032B9A7010008E07EA /* SwiftUI-AR-School-App */ = {
 			isa = PBXGroup;
 			children = (
+				079FD6302B9B8B80008E07EA /* Components */,
 				079FD6042B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift */,
 				079FD6062B9A7010008E07EA /* ContentView.swift */,
 				079FD6082B9A7012008E07EA /* Assets.xcassets */,
@@ -125,6 +130,15 @@
 				079FD6212B9A7012008E07EA /* SwiftUI_AR_School_AppUITestsLaunchTests.swift */,
 			);
 			path = "SwiftUI-AR-School-AppUITests";
+			sourceTree = "<group>";
+		};
+		079FD6302B9B8B80008E07EA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				079FD62E2B9A7239008E07EA /* SearchTextfield.swift */,
+				079FD6312B9B8BA6008E07EA /* DestinationPickerWheel.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +271,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				079FD6322B9B8BA6008E07EA /* DestinationPickerWheel.swift in Sources */,
 				079FD6072B9A7010008E07EA /* ContentView.swift in Sources */,
 				079FD6052B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift in Sources */,
+				079FD62F2B9A7239008E07EA /* SearchTextfield.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,8 +444,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,8 +474,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
