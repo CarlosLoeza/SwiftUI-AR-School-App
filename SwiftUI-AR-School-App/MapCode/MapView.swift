@@ -39,7 +39,7 @@ struct MapView: View {
             }
              */
             Map {
-                ForEach(0..<locations.count, id: \.self) { i in
+                ForEach(0..<mapVM.locations.count, id: \.self) { i in
                     //                MapAnnotation(coordinate: location.coordinate) {
                     //                    VStack {
                     //                        Image(systemName: "figure.walk.circle.fill")
@@ -54,7 +54,7 @@ struct MapView: View {
                     //                }
                     
                     if (i == 0) {
-                        Annotation( locations[i].name, coordinate: locations[i].coordinate,
+                        Annotation( mapVM.locations[i].name, coordinate: mapVM.locations[i].coordinate,
                                     anchor: .bottom
                         ) {
                             Image(systemName: "building.2.crop.circle.fill")
@@ -63,8 +63,8 @@ struct MapView: View {
                                 .background(Color.indigo)
                                 .cornerRadius (5)
                         }
-                    } else if (i == locations.count-1) {
-                        Annotation( locations[i].name, coordinate: locations[i].coordinate,
+                    } else if (i == mapVM.locations.count-1) {
+                        Annotation( mapVM.locations[i].name, coordinate: mapVM.locations[i].coordinate,
                                     anchor: .bottom
                         ) {
                             Image(systemName: "building.2.crop.circle.fill")
@@ -74,7 +74,7 @@ struct MapView: View {
                                 .cornerRadius (5)
                         }
                     } else {
-                        Annotation( locations[i].name, coordinate: locations[i].coordinate,
+                        Annotation( mapVM.locations[i].name, coordinate: mapVM.locations[i].coordinate,
                                     anchor: .bottom
                         ) {
                             Image(systemName: "figure.walk.circle.fill")
