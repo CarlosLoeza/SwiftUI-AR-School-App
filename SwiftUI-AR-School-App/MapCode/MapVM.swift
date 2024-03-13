@@ -5,6 +5,7 @@
 //  Created by Carlos on 3/11/24.
 //
 
+
 import SwiftUI
 import MapKit
 
@@ -191,3 +192,4 @@ class MapVM: ObservableObject {
         return pathResult
     }
 }
+

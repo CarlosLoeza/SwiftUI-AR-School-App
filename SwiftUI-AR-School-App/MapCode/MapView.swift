@@ -69,3 +69,4 @@ struct MapView: View {
 #Preview {
     MapView(startingPointText: "Admissions", destinationPointText: "Creative Arts")
 }
+
