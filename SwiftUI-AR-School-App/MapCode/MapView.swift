@@ -8,19 +8,6 @@
 import SwiftUI
 import MapKit
 
-
-
-/*
- "Admissions": 0,
- "Burk Hall": 31,
- "Business": 1,
- "Creative Arts": 19,
- "Cesar Chavez Student Center": 13,
- "Fine Arts": 21,
-//                            "Humanities": 0, // change this
- "J. Paul Leonard Library": 5
- */
-
 @available(iOS 17.0, *)
 struct MapView: View {
     @StateObject var mapVM = MapVM()
@@ -33,28 +20,10 @@ struct MapView: View {
     
     var body: some View {
         VStack{
-            /*
-            Map(coordinateRegion: $mapStartRegion, annotationItems: locations) {location in
-                MapMarker(coordinate: location.coordinate)
-            }
-             */
             Map {
-                ForEach(0..<mapVM.locations.count, id: \.self) { i in
-                    //                MapAnnotation(coordinate: location.coordinate) {
-                    //                    VStack {
-                    //                        Image(systemName: "figure.walk.circle.fill")
-                    //                            .resizable()
-                    //                            .frame(width: 30, height: 30)
-                    //                            .foregroundColor(.yellow)
-                    //
-                    //
-                    //
-                    //                    }
-                    //
-                    //                }
-                    
+                ForEach(0..<mapVM.vPath.count, id: \.self) { i in
                     if (i == 0) {
-                        Annotation( mapVM.locations[i].name, coordinate: mapVM.locations[i].coordinate,
+                        Annotation( mapVM.vPath[i].name, coordinate: mapVM.vPath[i].coordinate,
                                     anchor: .bottom
                         ) {
                             Image(systemName: "building.2.crop.circle.fill")
@@ -63,8 +32,8 @@ struct MapView: View {
                                 .background(Color.indigo)
                                 .cornerRadius (5)
                         }
-                    } else if (i == mapVM.locations.count-1) {
-                        Annotation( mapVM.locations[i].name, coordinate: mapVM.locations[i].coordinate,
+                    } else if (i == mapVM.vPath.count-1) {
+                        Annotation( mapVM.vPath[i].name, coordinate: mapVM.vPath[i].coordinate,
                                     anchor: .bottom
                         ) {
                             Image(systemName: "building.2.crop.circle.fill")
@@ -74,7 +43,7 @@ struct MapView: View {
                                 .cornerRadius (5)
                         }
                     } else {
-                        Annotation( mapVM.locations[i].name, coordinate: mapVM.locations[i].coordinate,
+                        Annotation( "", coordinate: mapVM.vPath[i].coordinate,
                                     anchor: .bottom
                         ) {
                             Image(systemName: "figure.walk.circle.fill")
@@ -84,16 +53,13 @@ struct MapView: View {
                                 .cornerRadius (15)
                         }
                     }
-                    
-                    
                 }
             }
             .mapStyle(.hybrid(elevation: .realistic))
-            
         }
         .edgesIgnoringSafeArea(.all)
         .onAppear {
-            mapVM.path = mapVM.findClassRoute(startingPointText: startingPointText, destinationPointText: destinationPointText)
+            mapVM.vPath = mapVM.findClassRoute(startingPointText: startingPointText, destinationPointText: destinationPointText)
         }
        
     }

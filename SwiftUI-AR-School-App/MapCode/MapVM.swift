@@ -15,6 +15,7 @@ struct Locations: Identifiable {
 }
 
 class MapVM: ObservableObject {
+    @Published var vPath : [Locations] = []
     let size = 32
     var path : [Int] = []
     
@@ -110,8 +111,8 @@ class MapVM: ObservableObject {
                             "J. Paul Leonard Library": 5
                          ]
     
-    func findClassRoute(startingPointText: String, destinationPointText: String) -> [Int]{
-        var pathResult: [Int] = []
+    func findClassRoute(startingPointText: String, destinationPointText: String) -> [Locations]{
+        var pathResult: [Locations] = []
         if startingPointText != "Select Starting Point" && destinationPointText != "Select Destination Point" {
             let startingVertex = locationVertex[startingPointText] ?? -1
             let destinationVertex = locationVertex[destinationPointText] ?? -1
@@ -129,20 +130,20 @@ class MapVM: ObservableObject {
     }
    
     
-    func getSolution(parent: [Int], src: Int, dest: Int, size: Int, distance: [Int]) -> [Int] {
+    func getSolution(parent: [Int], src: Int, dest: Int, size: Int, distance: [Int]) -> [Locations] {
         var currentVertex = dest
-        var path: [Int] = []
+        var path: [Locations] = []
         while currentVertex != src {
-            path.insert(currentVertex, at: 0)
+            path.insert(locations[currentVertex], at: 0)
             currentVertex = parent[currentVertex]
             if currentVertex == -1 {
                 print("No path exists from \(src) to \(dest)")
             }
         }
-        path.insert(src, at: 0)
-        let formattedPath = path.map(String.init).joined(separator: " ->  ")
-        print("Shortest path from \(src) to \(dest): \(formattedPath)")
-        print("Shortest distance: \(distance[dest])")
+        path.insert(locations[src], at: 0)
+//        let formattedPath = path.map(String.init).joined(separator: " ->  ")
+//        print("Shortest path from \(src) to \(dest): \(formattedPath)")
+//        print("Shortest distance: \(distance[dest])")
         return path
     }
     
@@ -165,7 +166,7 @@ class MapVM: ObservableObject {
     }
 
     // Updated Dijkstra's algorithm using priority queue
-    func dijkstra(graph: [[Int]], src: Int, dest: Int, size: Int) -> [Int] {
+    func dijkstra(graph: [[Int]], src: Int, dest: Int, size: Int) -> [Locations] {
         var distance = [Int](repeating: Int.max, count: size)
         var parent = [Int](repeating: -1, count: size)
         distance[src] = 0
