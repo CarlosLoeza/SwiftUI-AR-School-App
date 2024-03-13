@@ -19,6 +19,8 @@
 		079FD6372B9EB5BF008E07EA /* DestinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6362B9EB5BF008E07EA /* DestinationView.swift */; };
 		079FD6392B9EB5D1008E07EA /* DestinationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6382B9EB5D1008E07EA /* DestinationVM.swift */; };
 		079FD63B2B9EB5DE008E07EA /* DestinationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD63A2B9EB5DE008E07EA /* DestinationModel.swift */; };
+		079FD67F2B9FAB17008E07EA /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD67E2B9FAB17008E07EA /* MapView.swift */; };
+		079FD6812B9FAB21008E07EA /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6802B9FAB21008E07EA /* MapVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		079FD6362B9EB5BF008E07EA /* DestinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationView.swift; sourceTree = "<group>"; };
 		079FD6382B9EB5D1008E07EA /* DestinationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationVM.swift; sourceTree = "<group>"; };
 		079FD63A2B9EB5DE008E07EA /* DestinationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationModel.swift; sourceTree = "<group>"; };
+		079FD67E2B9FAB17008E07EA /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		079FD6802B9FAB21008E07EA /* MapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,7 @@
 		079FD6032B9A7010008E07EA /* SwiftUI-AR-School-App */ = {
 			isa = PBXGroup;
 			children = (
+				079FD67D2B9FAB08008E07EA /* MapCode */,
 				079FD6352B9EB589008E07EA /* DestinationCode */,
 				079FD6302B9B8B80008E07EA /* Components */,
 				079FD6042B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift */,
@@ -156,6 +161,15 @@
 				079FD63A2B9EB5DE008E07EA /* DestinationModel.swift */,
 			);
 			path = DestinationCode;
+			sourceTree = "<group>";
+		};
+		079FD67D2B9FAB08008E07EA /* MapCode */ = {
+			isa = PBXGroup;
+			children = (
+				079FD67E2B9FAB17008E07EA /* MapView.swift */,
+				079FD6802B9FAB21008E07EA /* MapVM.swift */,
+			);
+			path = MapCode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,8 +303,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				079FD6322B9B8BA6008E07EA /* DestinationPickerWheel.swift in Sources */,
+				079FD67F2B9FAB17008E07EA /* MapView.swift in Sources */,
 				079FD6392B9EB5D1008E07EA /* DestinationVM.swift in Sources */,
 				079FD6072B9A7010008E07EA /* ContentView.swift in Sources */,
+				079FD6812B9FAB21008E07EA /* MapVM.swift in Sources */,
 				079FD6372B9EB5BF008E07EA /* DestinationView.swift in Sources */,
 				079FD6052B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift in Sources */,
 				079FD62F2B9A7239008E07EA /* SearchTextfield.swift in Sources */,
