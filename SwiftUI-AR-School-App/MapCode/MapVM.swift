@@ -88,7 +88,6 @@ class MapVM: ObservableObject {
         Locations(name: "", coordinate: CLLocationCoordinate2D(latitude: 37.722717, longitude: -122.479372)),           //30
         Locations(name: "Burk Hall", coordinate: CLLocationCoordinate2D(latitude: 37.722847, longitude: -122.479420)),  //31
     ]
-    
     let destinations: [String] = [ "-- Select One --",
                                    "Admissions",
                                    "Burk Hall",
