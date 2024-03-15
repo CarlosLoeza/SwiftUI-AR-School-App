@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		075B1A1E2BA4CEBA002C67A9 /* AugmentedRealityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B1A1D2BA4CEBA002C67A9 /* AugmentedRealityView.swift */; };
 		079FD6052B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6042B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift */; };
 		079FD6072B9A7010008E07EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6062B9A7010008E07EA /* ContentView.swift */; };
 		079FD6092B9A7012008E07EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 079FD6082B9A7012008E07EA /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		075B1A1D2BA4CEBA002C67A9 /* AugmentedRealityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityView.swift; sourceTree = "<group>"; };
 		079FD6012B9A7010008E07EA /* SwiftUI-AR-School-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftUI-AR-School-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		079FD6042B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_AR_School_AppApp.swift; sourceTree = "<group>"; };
 		079FD6062B9A7010008E07EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -85,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07790AD42BA27225009C017E /* ARCode */ = {
+			isa = PBXGroup;
+			children = (
+				075B1A1D2BA4CEBA002C67A9 /* AugmentedRealityView.swift */,
+			);
+			path = ARCode;
+			sourceTree = "<group>";
+		};
 		079FD5F82B9A7010008E07EA = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +118,7 @@
 		079FD6032B9A7010008E07EA /* SwiftUI-AR-School-App */ = {
 			isa = PBXGroup;
 			children = (
+				07790AD42BA27225009C017E /* ARCode */,
 				079FD67D2B9FAB08008E07EA /* MapCode */,
 				079FD6352B9EB589008E07EA /* DestinationCode */,
 				079FD6302B9B8B80008E07EA /* Components */,
@@ -307,6 +318,7 @@
 				079FD6392B9EB5D1008E07EA /* DestinationVM.swift in Sources */,
 				079FD6072B9A7010008E07EA /* ContentView.swift in Sources */,
 				079FD6812B9FAB21008E07EA /* MapVM.swift in Sources */,
+				075B1A1E2BA4CEBA002C67A9 /* AugmentedRealityView.swift in Sources */,
 				079FD6372B9EB5BF008E07EA /* DestinationView.swift in Sources */,
 				079FD6052B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift in Sources */,
 				079FD62F2B9A7239008E07EA /* SearchTextfield.swift in Sources */,
@@ -477,6 +489,8 @@
 				DEVELOPMENT_TEAM = C3353ZR648;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow camera access to use AR";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow location access to use AR";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -507,6 +521,8 @@
 				DEVELOPMENT_TEAM = C3353ZR648;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow camera access to use AR";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow location access to use AR";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
