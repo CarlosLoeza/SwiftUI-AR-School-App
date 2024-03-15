@@ -44,18 +44,47 @@ extension ARView {
             coachingOverlay.heightAnchor.constraint(equalTo: arView.heightAnchor),
         ])
     }
-
 }
+
 
 struct AugmentedRealityView : View {
-    var body : some View {
-        ARViewContainer()
-            .edgesIgnoringSafeArea(.all)
-            .onAppear {
-                UIApplication.shared.isIdleTimerDisabled = true
+    @State private var isARSupported = false
+    @State private var isARAvailable = false
+
+    var body: some View {
+        VStack {
+            if isARSupported && isARAvailable {
+                ARViewContainer()
+                    .edgesIgnoringSafeArea(.all)
+                    .onAppear {
+                        UIApplication.shared.isIdleTimerDisabled = true
+                    }
+            } else {
+                Text("AR is not supported on this device or at this location.")
+                    .padding()
             }
+        }
+        .onAppear {
+            checkARCompatibility()
+        }
+    }
+
+    func checkARCompatibility() {
+        // Check device support for geo-tracking
+        if ARGeoTrackingConfiguration.isSupported {
+            isARSupported = true
+
+            // Check current location is supported for geo-tracking
+            ARGeoTrackingConfiguration.checkAvailability { available, _ in
+                if available {
+                    // Geo-tracking is available at this location
+                    isARAvailable = true
+                }
+            }
+        }
     }
 }
+
 
 #Preview {
     AugmentedRealityView()
