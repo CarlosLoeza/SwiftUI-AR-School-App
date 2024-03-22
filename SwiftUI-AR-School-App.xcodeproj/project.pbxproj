@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		075B1A1E2BA4CEBA002C67A9 /* AugmentedRealityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B1A1D2BA4CEBA002C67A9 /* AugmentedRealityView.swift */; };
+		0781D6672BAE077C00035C11 /* AugmentedRealityVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0781D6662BAE077C00035C11 /* AugmentedRealityVM.swift */; };
 		079FD6052B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6042B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift */; };
 		079FD6072B9A7010008E07EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6062B9A7010008E07EA /* ContentView.swift */; };
 		079FD6092B9A7012008E07EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 079FD6082B9A7012008E07EA /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		075B1A1D2BA4CEBA002C67A9 /* AugmentedRealityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityView.swift; sourceTree = "<group>"; };
+		0781D6662BAE077C00035C11 /* AugmentedRealityVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityVM.swift; sourceTree = "<group>"; };
 		079FD6012B9A7010008E07EA /* SwiftUI-AR-School-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftUI-AR-School-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		079FD6042B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_AR_School_AppApp.swift; sourceTree = "<group>"; };
 		079FD6062B9A7010008E07EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				075B1A1D2BA4CEBA002C67A9 /* AugmentedRealityView.swift */,
+				0781D6662BAE077C00035C11 /* AugmentedRealityVM.swift */,
 			);
 			path = ARCode;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				079FD6052B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift in Sources */,
 				079FD62F2B9A7239008E07EA /* SearchTextfield.swift in Sources */,
 				079FD63B2B9EB5DE008E07EA /* DestinationModel.swift in Sources */,
+				0781D6672BAE077C00035C11 /* AugmentedRealityVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
