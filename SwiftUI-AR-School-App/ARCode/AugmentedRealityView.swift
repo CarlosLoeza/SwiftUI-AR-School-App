@@ -8,32 +8,84 @@
 import SwiftUI
 import ARKit
 import RealityKit
+import CoreLocation
 
-struct ARViewContainer: UIViewRepresentable {
+struct AugmentedRealityView: UIViewRepresentable {
+    let coordinates: [CLLocationCoordinate2D]
+    
+    init(coordinates: [CLLocationCoordinate2D]) {
+        self.coordinates = coordinates
+        guard ARGeoTrackingConfiguration.isSupported else {
+            print("ARGeoTracking is not supported")
+            return
+        }
+        
+        ARGeoTrackingConfiguration.checkAvailability { available, error in
+            if let error = error {
+                print("ARGeoTracking availability error:", error)
+            } else if available {
+                print("ARGeoTracking is available")
+            } else {
+                print("ARGeoTracking is not available")
+            }
+        }
+    }
+   
     func makeUIView(context: Context) -> ARView {
         let arView = ARView(frame: .zero)
+        arView.session.delegate = context.coordinator
+        context.coordinator.arView = arView
         let config = ARGeoTrackingConfiguration()
-        config.planeDetection = [.horizontal]
-        config.environmentTexturing = .automatic
         arView.session.run(config)
+        
         // Configure AR view and add coaching overlay
         arView.setupCoachingOverlay(for: arView)
+        
+        for coordinate in coordinates {
+            let geoAnchor = ARGeoAnchor(coordinate: coordinate)
+                arView.session.add(anchor: geoAnchor)
+        }
+        
         return arView
     }
-
-
-    func updateUIView(_ uiView: ARView, context: Context) {
-        // Update the view if needed
+   
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
     }
+   
+    func updateUIView(_ uiView: ARView, context: Context) {}
 }
 
+class Coordinator: NSObject, ARSessionDelegate {
+   
+    weak var arView: ARView?
+   
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+
+        for anchor in anchors {
+            print("Anchor added:", anchor)
+            // create box we will attach to location
+            let box = ModelEntity(mesh: MeshResource.generateBox(size: 0.5), materials: [SimpleMaterial(color: .blue, isMetallic: true)])
+            // add location to geoAnchor
+            let geoAnchorEntity = AnchorEntity(anchor: anchor)
+            // add box to geoAnchor
+            geoAnchorEntity.addChild(box)
+            // make sure we have our arView instance
+            guard let arView = arView else {
+                print("ARView not available")
+                return
+            }
+            // add geoAnchor to our
+            arView.scene.addAnchor(geoAnchorEntity)
+        }
+    }
+}
 
 extension ARView {
     func setupCoachingOverlay(for arView: ARView) {
         let coachingOverlay = ARCoachingOverlayView()
         coachingOverlay.session = arView.session
         coachingOverlay.goal = .geoTracking
-
         arView.addSubview(coachingOverlay)
         coachingOverlay.translatesAutoresizingMaskIntoConstraints = false
 
@@ -47,49 +99,15 @@ extension ARView {
 }
 
 
-struct AugmentedRealityView : View {
-    @State private var isARSupported = false
-    @State private var isARAvailable = false
-
-    var body: some View {
-        VStack {
-            if isARSupported && isARAvailable {
-                ARViewContainer()
-                    .edgesIgnoringSafeArea(.all)
-                    .onAppear {
-                        UIApplication.shared.isIdleTimerDisabled = true
-                    }
-            } else {
-                Text("AR is not supported on this device or at this location.")
-                    .padding()
-            }
-        }
-        .onAppear {
-            checkARCompatibility()
-        }
-    }
-
-    func checkARCompatibility() {
-        // Check device support for geo-tracking
-        if ARGeoTrackingConfiguration.isSupported {
-            isARSupported = true
-
-            // Check current location is supported for geo-tracking
-            ARGeoTrackingConfiguration.checkAvailability { available, _ in
-                if available {
-                    // Geo-tracking is available at this location
-                    isARAvailable = true
-                }
-            }
-        }
-    }
-}
-
-
 #Preview {
-    AugmentedRealityView()
+    let houseCoords: [CLLocationCoordinate2D] = [
+        CLLocationCoordinate2D(latitude: 37.702811, longitude: -122.467506),
+        CLLocationCoordinate2D(latitude: 37.702861, longitude: -122.467506),
+        CLLocationCoordinate2D(latitude: 37.702926, longitude: -122.467509),
+        CLLocationCoordinate2D(latitude: 37.702994, longitude: -122.467509)
+    ]
+    
+    AugmentedRealityView(coordinates: houseCoords)
         .edgesIgnoringSafeArea(.all)
-        .onAppear {
-            UIApplication.shared.isIdleTimerDisabled = true
-        }
+
 }
