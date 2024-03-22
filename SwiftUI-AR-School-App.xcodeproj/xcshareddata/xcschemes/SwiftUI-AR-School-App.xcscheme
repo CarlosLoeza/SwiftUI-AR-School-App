@@ -73,9 +73,6 @@
             ReferencedContainer = "container:SwiftUI-AR-School-App.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <DeviceSensorReplayFileReference
-         identifier = "../../AR Session 5.mov">
-      </DeviceSensorReplayFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
