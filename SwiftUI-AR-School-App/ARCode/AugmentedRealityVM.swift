@@ -11,12 +11,12 @@ import RealityKit
 import CoreLocation
 
 
-class AugmentedRealityVM: NSObject, ObservableObject {
-    @Published var coordinates: [CLLocationCoordinate2D]
+class AugmentedRealityVM: NSObject, ObservableObject, ARSessionDelegate {
+    @Published var mapCoords: [Locations]
     private var arView: ARView?
     
-    init(coordinates: [CLLocationCoordinate2D]) {
-        self.coordinates = coordinates
+    init(mapCoords: [Locations]) {
+        self.mapCoords = mapCoords
         super.init()
         
         guard ARGeoTrackingConfiguration.isSupported else {
@@ -35,15 +35,6 @@ class AugmentedRealityVM: NSObject, ObservableObject {
         }
     }
     
-    func setupARView(arView: ARView) {
-        self.arView = arView
-        let config = ARGeoTrackingConfiguration()
-        arView.session.run(config)
-        arView.session.delegate = self
-    }
-}
-
-extension AugmentedRealityVM: ARSessionDelegate {
     func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
         for anchor in anchors {
             print("Anchor added:", anchor)
@@ -57,5 +48,14 @@ extension AugmentedRealityVM: ARSessionDelegate {
             arView.scene.addAnchor(geoAnchorEntity)
         }
     }
+    
+    func setupARView(arView: ARView) {
+        self.arView = arView
+        let config = ARGeoTrackingConfiguration()
+        arView.session.run(config)
+        arView.session.delegate = self
+    }
 }
+
+
 

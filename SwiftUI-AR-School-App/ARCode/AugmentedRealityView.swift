@@ -11,22 +11,23 @@ import RealityKit
 import CoreLocation
 
 struct AugmentedRealityView: UIViewRepresentable {
-    let coordinates: [CLLocationCoordinate2D]
+    let mapCoords: [Locations]
+    
     @StateObject var viewModel: AugmentedRealityVM
    
-    init(coordinates: [CLLocationCoordinate2D]) {
-        self.coordinates = coordinates
-        self._viewModel = StateObject(wrappedValue: AugmentedRealityVM(coordinates: coordinates))
+    init(mapCoords: [Locations]) {
+        self.mapCoords = mapCoords
+        self._viewModel = StateObject(wrappedValue: AugmentedRealityVM(mapCoords: mapCoords))
     }
    
     func makeUIView(context: Context) -> ARView {
         let arView = ARView(frame: .zero)
         viewModel.setupARView(arView: arView)
         arView.setupCoachingOverlay(for: arView)
-        
-        for coordinate in coordinates {
-            let geoAnchor = ARGeoAnchor(coordinate: coordinate)
-            arView.session.add(anchor: geoAnchor)
+
+        for mapCoord in mapCoords {
+            let gAnchor = ARGeoAnchor(coordinate: mapCoord.coordinate)
+            arView.session.add(anchor: gAnchor)
         }
         
         return arView
