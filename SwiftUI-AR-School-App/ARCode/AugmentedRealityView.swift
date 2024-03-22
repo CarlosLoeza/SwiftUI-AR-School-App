@@ -97,17 +97,3 @@ extension ARView {
         ])
     }
 }
-
-
-#Preview {
-    let houseCoords: [CLLocationCoordinate2D] = [
-        CLLocationCoordinate2D(latitude: 37.702811, longitude: -122.467506),
-        CLLocationCoordinate2D(latitude: 37.702861, longitude: -122.467506),
-        CLLocationCoordinate2D(latitude: 37.702926, longitude: -122.467509),
-        CLLocationCoordinate2D(latitude: 37.702994, longitude: -122.467509)
-    ]
-    
-    AugmentedRealityView(coordinates: houseCoords)
-        .edgesIgnoringSafeArea(.all)
-
-}
