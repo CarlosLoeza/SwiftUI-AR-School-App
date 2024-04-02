@@ -12,7 +12,6 @@ import CoreLocation
 
 struct AugmentedRealityView: UIViewRepresentable {
     let mapCoords: [Locations]
-    
     @StateObject var viewModel: AugmentedRealityVM
    
     init(mapCoords: [Locations]) {

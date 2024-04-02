@@ -19,45 +19,63 @@ struct MapView: View {
     
     
     var body: some View {
-        VStack{
-            Map {
-                ForEach(0..<mapVM.vPath.count, id: \.self) { i in
-                    if (i == 0) {
-                        Annotation( mapVM.vPath[i].name, coordinate: mapVM.vPath[i].coordinate,
-                                    anchor: .bottom
-                        ) {
-                            Image(systemName: "building.2.crop.circle.fill")
-                                .padding (4)
-                                .foregroundStyle(.white)
-                                .background(Color.indigo)
-                                .cornerRadius (5)
-                        }
-                    } else if (i == mapVM.vPath.count-1) {
-                        Annotation( mapVM.vPath[i].name, coordinate: mapVM.vPath[i].coordinate,
-                                    anchor: .bottom
-                        ) {
-                            Image(systemName: "building.2.crop.circle.fill")
-                                .padding (4)
-                                .foregroundStyle(.white)
-                                .background(Color.indigo)
-                                .cornerRadius (5)
-                        }
-                    } else {
-                        Annotation( "", coordinate: mapVM.vPath[i].coordinate,
-                                    anchor: .bottom
-                        ) {
-                            Image(systemName: "figure.walk.circle.fill")
-                                .padding (4)
-                                .foregroundStyle(.white)
-                                .background(Color.yellow)
-                                .cornerRadius (15)
+        NavigationView{
+            ZStack{
+                Map {
+                    ForEach(0..<mapVM.vPath.count, id: \.self) { i in
+                        if (i == 0) {
+                            Annotation( mapVM.vPath[i].name, coordinate: mapVM.vPath[i].coordinate,
+                                        anchor: .bottom
+                            ) {
+                                Image(systemName: "building.2.crop.circle.fill")
+                                    .padding (4)
+                                    .foregroundStyle(.white)
+                                    .background(Color.indigo)
+                                    .cornerRadius (5)
+                            }
+                        } else if (i == mapVM.vPath.count-1) {
+                            Annotation( mapVM.vPath[i].name, coordinate: mapVM.vPath[i].coordinate,
+                                        anchor: .bottom
+                            ) {
+                                Image(systemName: "building.2.crop.circle.fill")
+                                    .padding (4)
+                                    .foregroundStyle(.white)
+                                    .background(Color.indigo)
+                                    .cornerRadius (5)
+                            }
+                        } else {
+                            Annotation( "", coordinate: mapVM.vPath[i].coordinate,
+                                        anchor: .bottom
+                            ) {
+                                Image(systemName: "figure.walk.circle.fill")
+                                    .padding (4)
+                                    .foregroundStyle(.white)
+                                    .background(Color.yellow)
+                                    .cornerRadius (15)
+                            }
                         }
                     }
                 }
+                .mapStyle(.hybrid(elevation: .realistic))
+                .edgesIgnoringSafeArea(.all)
+                .border(.green)
+
+                NavigationLink {
+                    AugmentedRealityView(mapCoords: mapVM.vPath)
+                        .ignoresSafeArea(.all)
+                } label: {
+                    Text("Tap me")
+                        .frame(width: 50, height: 50)
+                        .background(.thinMaterial)
+                        .padding(.leading, 275)
+                        .padding(.bottom, 550)
+                }
+                .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
             }
-            .mapStyle(.hybrid(elevation: .realistic))
+            .ignoresSafeArea(.all)
+            .border(.blue)
+            
         }
-        .edgesIgnoringSafeArea(.all)
         .onAppear {
             mapVM.vPath = mapVM.findClassRoute(startingPointText: startingPointText, destinationPointText: destinationPointText)
         }
