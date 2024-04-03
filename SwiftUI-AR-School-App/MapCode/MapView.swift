@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 
+
 @available(iOS 17.0, *)
 struct MapView: View {
     @StateObject var mapVM = MapVM()
@@ -18,21 +19,58 @@ struct MapView: View {
     
     
     var body: some View {
-        VStack{
-            Map {
-                ForEach(0..<mapVM.vPath.count, id: \.self) { i in
-                    // decide what map annotation to show based on i
-                    mapVM.decideAnnotationType(i: i)
+        NavigationView{
+            ZStack{
+                Map {
+                    ForEach(0..<mapVM.vPath.count, id: \.self) { i in
+                        // decide what map annotation to show based on i
+                        mapVM.decideAnnotationType(i: i)
+                    }
                 }
+                .mapStyle(.hybrid(elevation: .realistic))
+                .edgesIgnoringSafeArea(.all)
+
+                VStack {
+                    Spacer()
+                    NavigationLink {
+                        AugmentedRealityView(mapCoords: mapVM.vPath)
+                    } label: {
+                        MapImageButton(imageName: "binoculars.fill")
+                    }
+                    Button(action: {
+                        
+                    }, label: {
+                        MapImageButton(imageName: "location.fill")
+                    })
+                    Spacer()
+                }
+                .padding(.leading, 290)
+                .padding(.bottom, 550)
+                .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
+                
             }
-            .mapStyle(.hybrid(elevation: .realistic))
+            .ignoresSafeArea(.all)
         }
-        .edgesIgnoringSafeArea(.all)
         .onAppear {
             mapVM.vPath = mapVM.findClassRoute(startingPointText: startingPointText, destinationPointText: destinationPointText)
+            
         }
     }
 }
+
+struct MapImageButton: View {
+    let imageName: String
+    
+    var body: some View {
+        Image(systemName: imageName)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 35, height: 35)
+            .padding(5)
+            .background(.regularMaterial)
+    }
+}
+
 
 @available(iOS 17.0, *)
 #Preview {

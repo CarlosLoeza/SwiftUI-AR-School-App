@@ -122,7 +122,7 @@ class MapVM: ObservableObject {
             let endTime = DispatchTime.now()
             let nanoseconds = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
             let milliseconds = Double(nanoseconds) / 1_000_000
-            print("find class: \(pathResult)")
+//            print("find class: \(pathResult)")
             print("Runtime: \(milliseconds) milliseconds")
             return pathResult
             
@@ -131,7 +131,7 @@ class MapVM: ObservableObject {
     }
    
     
-    func getSolution(parent: [Int], src: Int, dest: Int, size: Int, distance: [Int]) -> [Locations] {
+    func getPath(parent: [Int], src: Int, dest: Int, size: Int, distance: [Int]) -> [Locations] {
         var currentVertex = dest
         var path: [Locations] = []
         while currentVertex != src {
@@ -187,7 +187,7 @@ class MapVM: ObservableObject {
         }
         
         // Printing the solution
-        let pathResult = getSolution(parent: parent, src: src, dest: dest, size: size, distance: distance)
+        let pathResult = getPath(parent: parent, src: src, dest: dest, size: size, distance: distance)
         
         return pathResult
     }
