@@ -10,7 +10,6 @@ import ARKit
 import RealityKit
 import CoreLocation
 
-
 class AugmentedRealityVM: NSObject, ObservableObject, ARSessionDelegate {
     @Published var mapCoords: [Locations]
     private var arView: ARView?
