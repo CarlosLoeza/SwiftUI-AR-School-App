@@ -62,7 +62,8 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
+      allowLocationSimulation = "YES"
+      allowDeviceSensorReplayData = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
@@ -73,6 +74,9 @@
             ReferencedContainer = "container:SwiftUI-AR-School-App.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <DeviceSensorReplayFileReference
+         identifier = "../../../../AR Session 5.mov">
+      </DeviceSensorReplayFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
