@@ -23,6 +23,7 @@ struct SwiftUI_AR_School_AppApp: App {
         WindowGroup {
 //            ContentView()
 //            DestinationView(destinationVM: DestinationVM())
+           
             AugmentedRealityView(mapCoords: mapCoords)
         }
     }
