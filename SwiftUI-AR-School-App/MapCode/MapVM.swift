@@ -191,5 +191,40 @@ class MapVM: ObservableObject {
         
         return pathResult
     }
+    
+    @available(iOS 17.0, *)
+    func decideAnnotationType(i: Int)-> Annotation<Text, some View>{
+        if (i == 0) {
+            return Annotation(vPath[i].name, coordinate: vPath[i].coordinate,
+                        anchor: .bottom
+            ) {
+                Image(systemName: "building.2.crop.circle.fill")
+                    .padding (4)
+                    .foregroundStyle(.white)
+                    .background(Color.indigo)
+                    .cornerRadius (5)
+            }
+        } else if (i == vPath.count-1) {
+            return Annotation(vPath[i].name, coordinate: vPath[i].coordinate,
+                        anchor: .bottom
+            ) {
+                Image(systemName: "building.2.crop.circle.fill")
+                    .padding (4)
+                    .foregroundStyle(.white)
+                    .background(Color.indigo)
+                    .cornerRadius (5)
+            }
+        } else {
+            return Annotation( "", coordinate: vPath[i].coordinate,
+                        anchor: .bottom
+            ) {
+                Image(systemName: "figure.walk.circle.fill")
+                    .padding (4)
+                    .foregroundStyle(.white)
+                    .background(Color.yellow)
+                    .cornerRadius (15)
+            }
+        }
+    }
 }
 
