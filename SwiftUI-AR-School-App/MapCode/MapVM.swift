@@ -142,9 +142,6 @@ class MapVM: ObservableObject {
             }
         }
         path.insert(locations[src], at: 0)
-//        let formattedPath = path.map(String.init).joined(separator: " ->  ")
-//        print("Shortest path from \(src) to \(dest): \(formattedPath)")
-//        print("Shortest distance: \(distance[dest])")
         return path
     }
     

@@ -12,48 +12,53 @@ import MapKit
 @available(iOS 17.0, *)
 struct MapView: View {
     @StateObject var mapVM = MapVM()
+    @Environment(\.presentationMode) var presentationMode
+    @State var campusPositionStart: MapCameraPosition = .automatic
     let startingPointText: String
     let destinationPointText: String
-    
-    @State private var mapStartRegion = MKCoordinateRegion(center: CLLocationCoordinate2DMake(37.72243, -122.47819), span: MKCoordinateSpan(latitudeDelta: 0.0035, longitudeDelta: 0.0035))
-    
+
     
     var body: some View {
         NavigationView{
-            ZStack{
-                Map {
-                    ForEach(0..<mapVM.vPath.count, id: \.self) { i in
-                        // decide what map annotation to show based on i
-                        mapVM.decideAnnotationType(i: i)
+            GeometryReader { geometry in
+                ZStack{
+                    Map(position: $campusPositionStart) {
+                        ForEach(0..<mapVM.vPath.count, id: \.self) { i in
+                            // decide what map annotation to show based on i
+                            mapVM.decideAnnotationType(i: i)
+                        }
                     }
-                }
-                .mapStyle(.hybrid(elevation: .realistic))
-                .edgesIgnoringSafeArea(.all)
-
-                VStack {
-                    Spacer()
-                    NavigationLink {
-                        AugmentedRealityView(mapCoords: mapVM.vPath)
-                    } label: {
-                        MapImageButton(imageName: "binoculars.fill")
-                    }
-                    Button(action: {
+                    .mapStyle(.hybrid(elevation: .realistic))
+                    .edgesIgnoringSafeArea(.all)
+                    
+                    VStack {
+                        Spacer()
+                        // go to AR view
+                        NavigationLink {
+                            AugmentedRealityView(mapCoords: mapVM.vPath)
+                                .navigationBarBackButtonHidden(true)
+                        } label: {
+                            MapImageButton(imageName: "binoculars.fill")
+                        }
+                        // go to previous screen, selecting destination
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            MapImageButton(imageName: "map.fill")
+                        })
                         
-                    }, label: {
-                        MapImageButton(imageName: "location.fill")
-                    })
-                    Spacer()
+                        Spacer()
+                    }
+                    .padding(.leading, geometry.size.width * 0.75)
+                    .padding(.top, geometry.size.height * 0.8)
+                    .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
+                    
                 }
-                .padding(.leading, 290)
-                .padding(.bottom, 550)
-                .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
-                
+//                .ignoresSafeArea(.all)
             }
-            .ignoresSafeArea(.all)
         }
         .onAppear {
             mapVM.vPath = mapVM.findClassRoute(startingPointText: startingPointText, destinationPointText: destinationPointText)
-            
         }
     }
 }
