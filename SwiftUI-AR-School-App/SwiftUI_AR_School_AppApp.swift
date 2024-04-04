@@ -22,8 +22,8 @@ struct SwiftUI_AR_School_AppApp: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-//            DestinationView(destinationVM: DestinationVM())
-            MapView(startingPointText: "Admissions", destinationPointText: "Creative Arts")
+            DestinationView(destinationVM: DestinationVM())
+//            MapView(startingPointText: "Admissions", destinationPointText: "Creative Arts")
 //            AugmentedRealityView(mapCoords: mapCoords)
         }
     }

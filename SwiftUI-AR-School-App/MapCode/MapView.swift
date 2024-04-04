@@ -44,7 +44,7 @@ struct MapView: View {
                         Button(action: {
                             presentationMode.wrappedValue.dismiss()
                         }, label: {
-                            MapImageButton(imageName: "map.fill")
+                            MapImageButton(imageName: "figure.walk.circle.fill")
                         })
                         
                         Spacer()

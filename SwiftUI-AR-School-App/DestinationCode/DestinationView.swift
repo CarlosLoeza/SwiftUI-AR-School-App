@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct DestinationView: View {
-    @StateObject var destinationVM = DestinationVM()
+    @StateObject var destinationVM : DestinationVM
     
     var body: some View {
         NavigationView {
