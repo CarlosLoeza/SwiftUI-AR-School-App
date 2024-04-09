@@ -52,9 +52,7 @@ struct MapView: View {
                     .padding(.leading, geometry.size.width * 0.75)
                     .padding(.top, geometry.size.height * 0.8)
                     .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
-                    
                 }
-//                .ignoresSafeArea(.all)
             }
         }
         .onAppear {
@@ -62,20 +60,6 @@ struct MapView: View {
         }
     }
 }
-
-struct MapImageButton: View {
-    let imageName: String
-    
-    var body: some View {
-        Image(systemName: imageName)
-            .resizable()
-            .scaledToFit()
-            .frame(width: 35, height: 35)
-            .padding(5)
-            .background(.regularMaterial)
-    }
-}
-
 
 @available(iOS 17.0, *)
 #Preview {
