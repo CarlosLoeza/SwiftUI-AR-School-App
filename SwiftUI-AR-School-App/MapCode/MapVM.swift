@@ -122,7 +122,7 @@ class MapVM: ObservableObject {
             let endTime = DispatchTime.now()
             let nanoseconds = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
             let milliseconds = Double(nanoseconds) / 1_000_000
-            print("find class: \(pathResult)")
+//            print("find class: \(pathResult)")
             print("Runtime: \(milliseconds) milliseconds")
             return pathResult
             
@@ -131,7 +131,7 @@ class MapVM: ObservableObject {
     }
    
     
-    func getSolution(parent: [Int], src: Int, dest: Int, size: Int, distance: [Int]) -> [Locations] {
+    func getPath(parent: [Int], src: Int, dest: Int, size: Int, distance: [Int]) -> [Locations] {
         var currentVertex = dest
         var path: [Locations] = []
         while currentVertex != src {
@@ -142,9 +142,6 @@ class MapVM: ObservableObject {
             }
         }
         path.insert(locations[src], at: 0)
-//        let formattedPath = path.map(String.init).joined(separator: " ->  ")
-//        print("Shortest path from \(src) to \(dest): \(formattedPath)")
-//        print("Shortest distance: \(distance[dest])")
         return path
     }
     
@@ -187,9 +184,44 @@ class MapVM: ObservableObject {
         }
         
         // Printing the solution
-        let pathResult = getSolution(parent: parent, src: src, dest: dest, size: size, distance: distance)
+        let pathResult = getPath(parent: parent, src: src, dest: dest, size: size, distance: distance)
         
         return pathResult
+    }
+    
+    @available(iOS 17.0, *)
+    func decideAnnotationType(i: Int)-> Annotation<Text, some View>{
+        if (i == 0) {
+            return Annotation(vPath[i].name, coordinate: vPath[i].coordinate,
+                        anchor: .bottom
+            ) {
+                Image(systemName: "building.2.crop.circle.fill")
+                    .padding (4)
+                    .foregroundStyle(.white)
+                    .background(Color.indigo)
+                    .cornerRadius (5)
+            }
+        } else if (i == vPath.count-1) {
+            return Annotation(vPath[i].name, coordinate: vPath[i].coordinate,
+                        anchor: .bottom
+            ) {
+                Image(systemName: "building.2.crop.circle.fill")
+                    .padding (4)
+                    .foregroundStyle(.white)
+                    .background(Color.indigo)
+                    .cornerRadius (5)
+            }
+        } else {
+            return Annotation( "", coordinate: vPath[i].coordinate,
+                        anchor: .bottom
+            ) {
+                Image(systemName: "figure.walk.circle.fill")
+                    .padding (4)
+                    .foregroundStyle(.white)
+                    .background(Color.yellow)
+                    .cornerRadius (15)
+            }
+        }
     }
 }
 

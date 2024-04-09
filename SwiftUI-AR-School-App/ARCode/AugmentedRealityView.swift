@@ -10,7 +10,51 @@ import ARKit
 import RealityKit
 import CoreLocation
 
-struct AugmentedRealityView: UIViewRepresentable {
+@available(iOS 17.0, *)
+struct AugmentedRealityView: View {
+    let mapCoords: [Locations]
+    @StateObject var viewModel: AugmentedRealityVM
+    @Environment(\.presentationMode) var presentationMode
+    
+    init(mapCoords: [Locations]) {
+        self.mapCoords = mapCoords
+        self._viewModel = StateObject(wrappedValue: AugmentedRealityVM(mapCoords: mapCoords))
+    }
+    
+    var body: some View {
+        NavigationView{
+            GeometryReader { geometry in
+                ZStack {
+                    ARViewRepresentable(mapCoords: mapCoords)
+                        .edgesIgnoringSafeArea(.all)
+                    VStack {
+                        Spacer()
+                        // go to AR view
+                        NavigationLink {
+                            DestinationView(destinationVM: DestinationVM())
+                                .navigationBarBackButtonHidden(true)
+                        } label: {
+                            MapImageButton(imageName: "figure.walk.circle.fill")
+                        }
+                        // go to previous screen, selecting destination
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            MapImageButton(imageName: "map.fill")
+                        })
+                        
+                        Spacer()
+                    }
+                    .padding(.leading, geometry.size.width * 0.75)
+                    .padding(.top, geometry.size.height * 0.8)
+                    .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
+                }
+            }
+        }
+    }
+}
+
+struct ARViewRepresentable: UIViewRepresentable {
     let mapCoords: [Locations]
     @StateObject var viewModel: AugmentedRealityVM
    
@@ -25,8 +69,8 @@ struct AugmentedRealityView: UIViewRepresentable {
         arView.setupCoachingOverlay(for: arView)
 
         for mapCoord in mapCoords {
-            let gAnchor = ARGeoAnchor(coordinate: mapCoord.coordinate)
-            arView.session.add(anchor: gAnchor)
+            let geoAnchor = ARGeoAnchor(coordinate: mapCoord.coordinate)
+            arView.session.add(anchor: geoAnchor)
         }
         
         return arView

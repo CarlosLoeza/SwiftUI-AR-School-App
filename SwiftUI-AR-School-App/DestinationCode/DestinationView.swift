@@ -9,8 +9,8 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct DestinationView: View {
-    @StateObject var destinationVM = DestinationVM()
-    
+    @StateObject var destinationVM : DestinationVM
+    @State var duplicateLocations = false
     var body: some View {
         NavigationView {
             GeometryReader{ geometry in
