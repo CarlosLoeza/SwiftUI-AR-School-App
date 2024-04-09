@@ -53,6 +53,21 @@ struct MapView: View {
                     .padding(.top, geometry.size.height * 0.8)
                     .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
                 }
+                .mapStyle(.hybrid(elevation: .realistic))
+                .edgesIgnoringSafeArea(.all)
+                .border(.green)
+
+                NavigationLink {
+                    AugmentedRealityView(mapCoords: mapVM.vPath)
+                        .ignoresSafeArea(.all)
+                } label: {
+                    Text("Tap me")
+                        .frame(width: 50, height: 50)
+                        .background(.thinMaterial)
+                        .padding(.leading, 275)
+                        .padding(.bottom, 550)
+                }
+                .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
             }
         }
         .onAppear {

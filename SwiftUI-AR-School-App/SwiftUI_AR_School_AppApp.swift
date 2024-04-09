@@ -25,6 +25,7 @@ struct SwiftUI_AR_School_AppApp: App {
             DestinationView(destinationVM: DestinationVM())
 //            MapView(startingPointText: "Admissions", destinationPointText: "Creative Arts")
 //            AugmentedRealityView(mapCoords: mapCoords)
+
         }
     }
 }

@@ -56,7 +56,6 @@ struct AugmentedRealityView: View {
 
 struct ARViewRepresentable: UIViewRepresentable {
     let mapCoords: [Locations]
-    
     @StateObject var viewModel: AugmentedRealityVM
    
     init(mapCoords: [Locations]) {
