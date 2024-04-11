@@ -131,6 +131,33 @@ class MapVM: ObservableObject {
     }
    
     
+    // Updated Dijkstra's algorithm using priority queue
+    func dijkstra(graph: [[Int]], src: Int, dest: Int, size: Int) -> [Locations] {
+        var distance = [Int](repeating: Int.max, count: size)
+        var parent = [Int](repeating: -1, count: size)
+        distance[src] = 0
+        var pq = PriorityQueue<Int>()
+        
+        pq.enqueue(src, priority: 0)
+        
+        while !pq.isEmpty {
+            guard let minVertex = pq.dequeue() else { break }
+            
+            for i in 0..<size {
+                if graph[minVertex][i] != 0 && distance[minVertex] != Int.max && distance[minVertex] + graph[minVertex][i] < distance[i] {
+                    distance[i] = distance[minVertex] + graph[minVertex][i]
+                    parent[i] = minVertex
+                    pq.enqueue(i, priority: distance[i])
+                }
+            }
+        }
+        // Printing the solution
+        let pathResult = getPath(parent: parent, src: src, dest: dest, size: size, distance: distance)
+        
+        return pathResult
+    }
+    
+    
     func getPath(parent: [Int], src: Int, dest: Int, size: Int, distance: [Int]) -> [Locations] {
         var currentVertex = dest
         var path: [Locations] = []
@@ -142,6 +169,7 @@ class MapVM: ObservableObject {
             }
         }
         path.insert(locations[src], at: 0)
+        print(path)
         return path
     }
     
@@ -163,31 +191,7 @@ class MapVM: ObservableObject {
         }
     }
 
-    // Updated Dijkstra's algorithm using priority queue
-    func dijkstra(graph: [[Int]], src: Int, dest: Int, size: Int) -> [Locations] {
-        var distance = [Int](repeating: Int.max, count: size)
-        var parent = [Int](repeating: -1, count: size)
-        distance[src] = 0
-        var pq = PriorityQueue<Int>()
-        pq.enqueue(src, priority: 0)
-        
-        while !pq.isEmpty {
-            guard let minVertex = pq.dequeue() else { break }
-            
-            for i in 0..<size {
-                if graph[minVertex][i] != 0 && distance[minVertex] != Int.max && distance[minVertex] + graph[minVertex][i] < distance[i] {
-                    distance[i] = distance[minVertex] + graph[minVertex][i]
-                    parent[i] = minVertex
-                    pq.enqueue(i, priority: distance[i])
-                }
-            }
-        }
-        
-        // Printing the solution
-        let pathResult = getPath(parent: parent, src: src, dest: dest, size: size, distance: distance)
-        
-        return pathResult
-    }
+
     
     @available(iOS 17.0, *)
     func decideAnnotationType(i: Int)-> Annotation<Text, some View>{
