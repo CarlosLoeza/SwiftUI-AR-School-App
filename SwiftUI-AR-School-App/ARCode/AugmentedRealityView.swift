@@ -13,14 +13,14 @@ import CoreLocation
 @available(iOS 17.0, *)
 struct AugmentedRealityView: View {
     let mapCoords: [Locations]
-    @StateObject var viewModel: AugmentedRealityVM
+//    @StateObject var viewModel: AugmentedRealityVM
     @Environment(\.presentationMode) var presentationMode
     
     init(mapCoords: [Locations]) {
         self.mapCoords = mapCoords
-        self._viewModel = StateObject(wrappedValue: AugmentedRealityVM(mapCoords: mapCoords))
+//        self._viewModel = StateObject(wrappedValue: AugmentedRealityVM(mapCoords: mapCoords))
     }
-    
+    /*
     var body: some View {
         NavigationView{
             GeometryReader { geometry in
@@ -52,8 +52,13 @@ struct AugmentedRealityView: View {
             }
         }
     }
+     */
+    
+    var body: some View {
+        Text("Testing code")
+    }
 }
-
+/*
 struct ARViewRepresentable: UIViewRepresentable {
     let mapCoords: [Locations]
     @StateObject var viewModel: AugmentedRealityVM
@@ -95,3 +100,4 @@ extension ARView {
         ])
     }
 }
+*/

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		073EBB162BC72B960012B554 /* SwiftUI_AR_School_App_DestinationViewM_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBB152BC72B960012B554 /* SwiftUI_AR_School_App_DestinationViewM_Tests.swift */; };
 		073EBB182BC72DA20012B554 /* SwiftUI_AR_School_App_MapVM_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBB172BC72DA20012B554 /* SwiftUI_AR_School_App_MapVM_Tests.swift */; };
+		073EBB1A2BC88BBE0012B554 /* DestinationView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073EBB192BC88BBE0012B554 /* DestinationView_UITests.swift */; };
 		07526D782BC5C2DD00726F58 /* MapImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07526D772BC5C2DD00726F58 /* MapImageButton.swift */; };
 		075B1A1E2BA4CEBA002C67A9 /* AugmentedRealityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B1A1D2BA4CEBA002C67A9 /* AugmentedRealityView.swift */; };
 		0781D6672BAE077C00035C11 /* AugmentedRealityVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0781D6662BAE077C00035C11 /* AugmentedRealityVM.swift */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		073EBB152BC72B960012B554 /* SwiftUI_AR_School_App_DestinationViewM_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_AR_School_App_DestinationViewM_Tests.swift; sourceTree = "<group>"; };
 		073EBB172BC72DA20012B554 /* SwiftUI_AR_School_App_MapVM_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_AR_School_App_MapVM_Tests.swift; sourceTree = "<group>"; };
+		073EBB192BC88BBE0012B554 /* DestinationView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationView_UITests.swift; sourceTree = "<group>"; };
 		07526D772BC5C2DD00726F58 /* MapImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapImageButton.swift; sourceTree = "<group>"; };
 		075B1A1D2BA4CEBA002C67A9 /* AugmentedRealityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityView.swift; sourceTree = "<group>"; };
 		0781D6662BAE077C00035C11 /* AugmentedRealityVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityVM.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			children = (
 				079FD61F2B9A7012008E07EA /* SwiftUI_AR_School_AppUITests.swift */,
 				079FD6212B9A7012008E07EA /* SwiftUI_AR_School_AppUITestsLaunchTests.swift */,
+				073EBB192BC88BBE0012B554 /* DestinationView_UITests.swift */,
 			);
 			path = "SwiftUI-AR-School-AppUITests";
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				073EBB1A2BC88BBE0012B554 /* DestinationView_UITests.swift in Sources */,
 				079FD6202B9A7012008E07EA /* SwiftUI_AR_School_AppUITests.swift in Sources */,
 				079FD6222B9A7012008E07EA /* SwiftUI_AR_School_AppUITestsLaunchTests.swift in Sources */,
 			);

@@ -9,7 +9,7 @@ import SwiftUI
 import ARKit
 import RealityKit
 import CoreLocation
-
+/*
 class AugmentedRealityVM: NSObject, ObservableObject, ARSessionDelegate {
     @Published var mapCoords: [Locations]
     private var arView: ARView?
@@ -99,3 +99,4 @@ extension ModelEntity {
         mesh: MeshResource.generateSphere(radius: 0.1),
         materials: [SimpleMaterial(color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.25), roughness: 0.3, isMetallic: true)])
 }
+*/
