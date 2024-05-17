@@ -21,5 +21,5 @@ struct MapImageButton: View {
 }
 
 #Preview {
-    MapImageButton(imageName: "binoculars.fill")
+    MapImageButton(imageName: "figure.dress.line.vertical.figure")
 }
