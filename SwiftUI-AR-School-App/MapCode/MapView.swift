@@ -55,7 +55,6 @@ struct MapView: View {
                 }
                 .mapStyle(.hybrid(elevation: .realistic))
                 .edgesIgnoringSafeArea(.all)
-                .border(.green)
 
                 NavigationLink {
                     AugmentedRealityView(mapCoords: mapVM.vPath)

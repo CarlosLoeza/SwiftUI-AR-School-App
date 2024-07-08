@@ -11,6 +11,8 @@ import MapKit
 @main
 @available(iOS 17.0, *)
 struct SwiftUI_AR_School_AppApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @AppStorage("signIn") var isSignIn = false
     let mapCoords: [Locations] = [
         Locations(name: "", coordinate: CLLocationCoordinate2D(latitude: 37.702746, longitude: -122.467521)),
         Locations(name: "", coordinate: CLLocationCoordinate2D(latitude: 37.702811, longitude: -122.467506)),
@@ -21,10 +23,16 @@ struct SwiftUI_AR_School_AppApp: App {
     
     var body: some Scene {
         WindowGroup {
+            if !isSignIn {
+                LoginView(loginVM: LoginVM())
+            } else {
+                DestinationView(destinationVM: DestinationVM())
+            }
 //            ContentView()
-            DestinationView(destinationVM: DestinationVM())
+//            DestinationView(destinationVM: DestinationVM())
 //            MapView(startingPointText: "Admissions", destinationPointText: "Creative Arts")
 //            AugmentedRealityView(mapCoords: mapCoords)
+            
 
         }
     }
