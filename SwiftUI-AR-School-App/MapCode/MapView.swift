@@ -14,6 +14,8 @@ struct MapView: View {
     @StateObject var mapVM = MapVM()
     @Environment(\.presentationMode) var presentationMode
     @State var campusPositionStart: MapCameraPosition = .automatic
+    @State private var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+    
     let startingPointText: String
     let destinationPointText: String
 
@@ -22,14 +24,18 @@ struct MapView: View {
         NavigationView{
             GeometryReader { geometry in
                 ZStack{
-                    Map(position: $campusPositionStart) {
+                    Map(position: $campusPositionStart ) {
                         ForEach(0..<mapVM.vPath.count, id: \.self) { i in
                             // decide what map annotation to show based on i
                             mapVM.decideAnnotationType(i: i)
                         }
                     }
+                    .mapControls{
+                        MapUserLocationButton()
+                           
+                    }
                     .mapStyle(.hybrid(elevation: .realistic))
-                    .edgesIgnoringSafeArea(.all)
+//                    .edgesIgnoringSafeArea(.all)
                     
                     VStack {
                         Spacer()
@@ -37,6 +43,7 @@ struct MapView: View {
                         NavigationLink {
                             AugmentedRealityView(mapCoords: mapVM.vPath)
                                 .navigationBarBackButtonHidden(true)
+                                .ignoresSafeArea(.all)
                         } label: {
                             MapImageButton(imageName: "binoculars.fill")
                         }
@@ -54,23 +61,25 @@ struct MapView: View {
                     .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
                 }
                 .mapStyle(.hybrid(elevation: .realistic))
-                .edgesIgnoringSafeArea(.all)
+//                .edgesIgnoringSafeArea(.all)
 
-                NavigationLink {
-                    AugmentedRealityView(mapCoords: mapVM.vPath)
-                        .ignoresSafeArea(.all)
-                } label: {
-                    Text("Tap me")
-                        .frame(width: 50, height: 50)
-                        .background(.thinMaterial)
-                        .padding(.leading, 275)
-                        .padding(.bottom, 550)
-                }
+//                NavigationLink {
+//                    AugmentedRealityView(mapCoords: mapVM.vPath)
+//                        .ignoresSafeArea(.all)
+//                } label: {
+//                    Text("Tap me")
+//                        .frame(width: 50, height: 50)
+//                        .background(.thinMaterial)
+//                        .padding(.leading, 275)
+//                        .padding(.bottom, 550)
+//                }
                 .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
             }
         }
         .onAppear {
+            CLLocationManager().requestWhenInUseAuthorization()
             mapVM.vPath = mapVM.findClassRoute(startingPointText: startingPointText, destinationPointText: destinationPointText)
+            
         }
     }
 }

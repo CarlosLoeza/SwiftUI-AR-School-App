@@ -164,6 +164,10 @@ struct DestinationView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(red: 60.0/255, green: 58.0/255, blue: 100.0/255))
+                .onAppear{
+                    destinationVM.startingPointText = "Select Starting Point"
+                    destinationVM.destinationPointText = "Select Destination Point"
+                }
             }
         }
     }
