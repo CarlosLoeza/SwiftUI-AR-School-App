@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 class DestinationVM: ObservableObject {
     @Published var startingPointText = "Select Starting Point"
@@ -28,3 +29,30 @@ class DestinationVM: ObservableObject {
                                    "J. Paul Leonard Library"
                                  ]
 }
+
+/*
+ 
+ if locationManagerVM.authorizationStatus == .notDetermined || locationManagerVM.authorizationStatus == .restricted {
+         Button(action: {
+             locationManagerVM.requestPermission()
+         }) {
+             Text("not determined/restricted")
+                 .padding()
+                 .background(Color.blue)
+                 .foregroundColor(.white)
+                 .cornerRadius(8)
+         }
+ } else if locationManagerVM.locationManager.authorizationStatus == .denied {
+     Button(action: {
+         
+         print("inside denied")
+         print(locationManagerVM.showAlert)
+     }) {
+         Text("denied")
+             .padding()
+             .background(Color.blue)
+             .foregroundColor(.white)
+             .cornerRadius(8)
+     }
+ }
+ */

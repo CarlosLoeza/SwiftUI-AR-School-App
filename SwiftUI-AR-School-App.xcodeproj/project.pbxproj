@@ -37,8 +37,8 @@
 		07B81FCD2BF6EF5900CE0C6A /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B81FCC2BF6EF5900CE0C6A /* LoginRequest.swift */; };
 		07B81FCF2BF6EF7300CE0C6A /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B81FCE2BF6EF7300CE0C6A /* LoginResponse.swift */; };
 		07C76D562C2CE66A008F7069 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07C76D552C2CE66A008F7069 /* GoogleService-Info.plist */; };
-		07C76D582C3DE1EB008F7069 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C76D572C3DE1EA008F7069 /* LocationManager.swift */; };
-		07C76D5B2C3DE527008F7069 /* LocationManagerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C76D5A2C3DE527008F7069 /* LocationManagerVM.swift */; };
+		07C76D582C3DE1EB008F7069 /* LocationManagerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C76D572C3DE1EA008F7069 /* LocationManagerVM.swift */; };
+		07C76DA92C407B56008F7069 /* LocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C76DA82C407B55008F7069 /* LocationButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,8 +89,8 @@
 		07B81FCC2BF6EF5900CE0C6A /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		07B81FCE2BF6EF7300CE0C6A /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		07C76D552C2CE66A008F7069 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		07C76D572C3DE1EA008F7069 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		07C76D5A2C3DE527008F7069 /* LocationManagerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerVM.swift; sourceTree = "<group>"; };
+		07C76D572C3DE1EA008F7069 /* LocationManagerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerVM.swift; sourceTree = "<group>"; };
+		07C76DA82C407B55008F7069 /* LocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +211,7 @@
 			children = (
 				079FD6312B9B8BA6008E07EA /* DestinationPickerWheel.swift */,
 				07526D772BC5C2DD00726F58 /* MapImageButton.swift */,
+				07C76DA82C407B55008F7069 /* LocationButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -258,8 +259,7 @@
 		07C76D592C3DE42B008F7069 /* LocationManager */ = {
 			isa = PBXGroup;
 			children = (
-				07C76D572C3DE1EA008F7069 /* LocationManager.swift */,
-				07C76D5A2C3DE527008F7069 /* LocationManagerVM.swift */,
+				07C76D572C3DE1EA008F7069 /* LocationManagerVM.swift */,
 			);
 			path = LocationManager;
 			sourceTree = "<group>";
@@ -421,10 +421,10 @@
 				072B08F72C24DCC700178C61 /* AppDelegate.swift in Sources */,
 				07B81FCB2BF6EE4F00CE0C6A /* Profile.swift in Sources */,
 				079FD6372B9EB5BF008E07EA /* DestinationView.swift in Sources */,
-				07C76D5B2C3DE527008F7069 /* LocationManagerVM.swift in Sources */,
 				079FD6052B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift in Sources */,
+				07C76DA92C407B56008F7069 /* LocationButton.swift in Sources */,
 				072B09052C24E3D400178C61 /* FirebAuth.swift in Sources */,
-				07C76D582C3DE1EB008F7069 /* LocationManager.swift in Sources */,
+				07C76D582C3DE1EB008F7069 /* LocationManagerVM.swift in Sources */,
 				079FD63B2B9EB5DE008E07EA /* DestinationModel.swift in Sources */,
 				072B09042C24E3D400178C61 /* +View.swift in Sources */,
 				0781D6672BAE077C00035C11 /* AugmentedRealityVM.swift in Sources */,

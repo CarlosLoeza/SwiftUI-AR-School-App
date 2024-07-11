@@ -10,9 +10,9 @@ import MapKit
 
 @available(iOS 17.0, *)
 struct DestinationView: View {
-    @StateObject var destinationVM : DestinationVM
+    @StateObject var destinationVM = DestinationVM()
     @StateObject var locationManagerVM = LocationManagerVM()
-    @State var duplicateLocations = false
+    @State private var authorizationStatus: CLAuthorizationStatus = .notDetermined
     
     var body: some View {
         NavigationView {
@@ -50,15 +50,8 @@ struct DestinationView: View {
                                                 RoundedRectangle(cornerRadius: 8)
                                                     .stroke(Color.yellow, lineWidth: 2)
                                         )
-                                      
-                                        LocationPermissionButton(
-                                            screenWidth: geometry.size.width,
-                                            screenHeight: geometry.size.height,
-                                            action: locationManagerVM.locationManager.requestPermission,
-                                            authorizationStatus: locationManagerVM.locationManager.authorizationStatus
-                                        )
-                                            
-//                                        .padding()
+                                        LocationButton(size: geometry.size, locationManagerVM: locationManagerVM)
+                                            .offset(x: geometry.size.width * 0.35)
                                     }
                                     .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.07)
                                 })
@@ -167,41 +160,14 @@ struct DestinationView: View {
                                         )
                                 }
                             }
-                            
-                            if locationManagerVM.locationManager.authorizationStatus == .notDetermined || locationManagerVM.locationManager.authorizationStatus == .restricted {
-                                    Button(action: {
-                                        locationManagerVM.locationManager.requestPermission()
-                                    }) {
-                                        Text("Allow Location Access")
-                                            .padding()
-                                            .background(Color.blue)
-                                            .foregroundColor(.white)
-                                            .cornerRadius(8)
-                                    }
-                            } else if locationManagerVM.locationManager.authorizationStatus == .denied {
-                                Button(action: {
-                                    locationManagerVM.locationManager.showAlert = true
-                                    print("inside denied")
-                                    print(locationManagerVM.locationManager.showAlert)
-                                }) {
-                                    Text("Allow Location Access")
-                                        .padding()
-                                        .background(Color.blue)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(8)
-                                }
-                            }
                             Button("Open Settings") {
                                 // Get the settings URL and open it
                                 if let url = URL(string: UIApplication.openSettingsURLString) {
                                     UIApplication.shared.open(url)
                                 }
                             }
-                            LocationButton(width: geometry.size.width, height: geometry.size.height)
                             Spacer()
-                            
                         }
-                        
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -210,7 +176,7 @@ struct DestinationView: View {
                     destinationVM.startingPointText = "Select Starting Point"
                     destinationVM.destinationPointText = "Select Destination Point"
                 }
-                .alert(isPresented: $locationManagerVM.locationManager.showAlert) {
+                .alert(isPresented: $locationManagerVM.showAlert) {
                             Alert(
                                 title: Text("Location Access Denied"),
                                 message: Text("To enable location access, please go to Settings and allow location access for this app."),
@@ -227,67 +193,6 @@ struct DestinationView: View {
     }
 }
 
-
-struct LocationButton: View {
-    let width: CGFloat
-    let height: CGFloat
-    
-    var body : some View {
-        Button {
-            
-        } label: {
-            Image(systemName: "location.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: width * 0.055, height: height * 0.055)
-//                .border(Color.black)
-                .padding(.leading, width * 0.7)
-        }
-    }
-}
-
-struct LocationImage: View {
-    let screenWidth: CGFloat
-    let screenHeight: CGFloat
-    
-    var body: some View {
-        Image(systemName: "location.fill")
-            .resizable()
-            .scaledToFit()
-            .frame(width: screenWidth * 0.055, height: screenHeight * 0.055)
-            .padding(.leading, screenWidth * 0.7)
-    }
-}
-
-struct LocationPermissionButton: View {
-    let screenWidth: CGFloat
-    let screenHeight: CGFloat
-    var action: () -> Void
-    var authorizationStatus: CLAuthorizationStatus
-
-    var body: some View {
-        Button(action: action) {
-            Image(systemName: imageName)
-                .resizable()
-                .scaledToFit()
-                .frame(width: screenWidth * 0.055, height: screenHeight * 0.055)
-                .padding(.leading, screenWidth * 0.7)
-        }
-    }
-
-    private var imageName: String {
-        switch authorizationStatus {
-        case .authorizedWhenInUse, .authorizedAlways:
-            return "location.fill" // Image 1 for authorized
-        case .notDetermined:
-            return "location" // Image 2 for not determined
-        case .denied, .restricted:
-            return "location.slash" // Image 3 for denied
-        @unknown default:
-            return "questionmark" // Default case for unknown statuses
-        }
-    }
-}
 
 
 @available(iOS 17.0, *)
