@@ -12,7 +12,6 @@ import MapKit
 struct DestinationView: View {
     @StateObject var destinationVM = DestinationVM()
     @EnvironmentObject var locationManagerVM : LocationManagerVM
-    @State private var authorizationStatus: CLAuthorizationStatus = .notDetermined
     
     var body: some View {
         NavigationView {
@@ -186,20 +185,23 @@ struct DestinationView: View {
                     destinationVM.startingPointText = "Select Starting Point"
                     destinationVM.destinationPointText = "Select Destination Point"
                     destinationVM.getList(authorizationStatus: locationManagerVM.authorizationStatus)
-                                    
+                }
+                .onChange(of: locationManagerVM.authorizationStatus) {
+                    destinationVM.startingPointText = "Select Starting Point"
+                    destinationVM.getList(authorizationStatus: locationManagerVM.authorizationStatus)
                 }
                 .alert(isPresented: $locationManagerVM.showAlert) {
-                            Alert(
-                                title: Text("Location Access Denied"),
-                                message: Text("To enable location access, please go to Settings and allow location access for this app."),
-                                primaryButton: .default(Text("Settings"), action: {
-                                    if let url = URL(string: UIApplication.openSettingsURLString) {
-                                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                                    }
-                                }),
-                                secondaryButton: .cancel()
-                            )
-                        }
+                    Alert(
+                        title: Text("Location Access Denied"),
+                        message: Text("To enable location access, please go to Settings and allow location access for this app."),
+                        primaryButton: .default(Text("Settings"), action: {
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                            }
+                        }),
+                        secondaryButton: .cancel()
+                    )
+                }
             }
         }
     }

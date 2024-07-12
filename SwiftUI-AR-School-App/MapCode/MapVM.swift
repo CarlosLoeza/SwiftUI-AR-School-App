@@ -115,17 +115,14 @@ class MapVM: ObservableObject {
     func findClassRoute(startingPointText: String, destinationPointText: String, currentLocation: CLLocationCoordinate2D?) -> [Locations]{
         var pathResult: [Locations] = []
         let startingVertex : Int
-    
         
-        print("location: \(currentLocation)")
-        if currentLocation == nil {
-            startingVertex = locationVertex[startingPointText] ?? -1
-        } else {
-            startingVertex = findClosestLocationIndex(to: CLLocationCoordinate2D(latitude: 37.722421, longitude: -122.479055), from: locations) ?? -1
+        if let currentLocation = currentLocation {
+            print("current location: \(currentLocation)")
+            startingVertex = findClosestLocationIndex(to: currentLocation, from: locations) ?? -1
             print("sVertex: \(startingVertex)")
- 
+        } else {
+            startingVertex = locationVertex[startingPointText] ?? -1
         }
-        
         let destinationVertex = locationVertex[destinationPointText] ?? -1
         print("starting: \(startingVertex)")
         print("destination: \(destinationPointText)")
@@ -134,7 +131,6 @@ class MapVM: ObservableObject {
         let endTime = DispatchTime.now()
         let nanoseconds = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
         let milliseconds = Double(nanoseconds) / 1_000_000
-//            print("find class: \(pathResult)")
         print("Runtime: \(milliseconds) milliseconds")
         return pathResult
  
