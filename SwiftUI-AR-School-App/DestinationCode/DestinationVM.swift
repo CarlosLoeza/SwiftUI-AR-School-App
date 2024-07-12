@@ -39,37 +39,4 @@ class DestinationVM: ObservableObject {
                                    "Fine Arts",
                                    "J. Paul Leonard Library"
                                  ]
-//    
-//    init() {
-//        currentList =
-//    }
-//    
-//    func getList()
 }
-
-/*
- 
- if locationManagerVM.authorizationStatus == .notDetermined || locationManagerVM.authorizationStatus == .restricted {
-         Button(action: {
-             locationManagerVM.requestPermission()
-         }) {
-             Text("not determined/restricted")
-                 .padding()
-                 .background(Color.blue)
-                 .foregroundColor(.white)
-                 .cornerRadius(8)
-         }
- } else if locationManagerVM.locationManager.authorizationStatus == .denied {
-     Button(action: {
-         
-         print("inside denied")
-         print(locationManagerVM.showAlert)
-     }) {
-         Text("denied")
-             .padding()
-             .background(Color.blue)
-             .foregroundColor(.white)
-             .cornerRadius(8)
-     }
- }
- */

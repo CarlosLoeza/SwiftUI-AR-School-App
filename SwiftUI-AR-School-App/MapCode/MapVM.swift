@@ -115,42 +115,45 @@ class MapVM: ObservableObject {
     
     func findClassRoute(startingPointText: String, destinationPointText: String) -> [Locations]{
         var pathResult: [Locations] = []
-        if startingPointText != "Select Starting Point" && destinationPointText != "Select Destination Point" {
-            let startingVertex = locationVertex[startingPointText] ?? -1
-            let destinationVertex = locationVertex[destinationPointText] ?? -1
-            let startTime = DispatchTime.now()
-            pathResult = dijkstra(graph: updatedGraph, src: startingVertex, dest: destinationVertex, size: size)
-            let endTime = DispatchTime.now()
-            let nanoseconds = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
-            let milliseconds = Double(nanoseconds) / 1_000_000
-//            print("find class: \(pathResult)")
-            print("Runtime: \(milliseconds) milliseconds")
-            return pathResult
-            
+        let startingVertex : Int
+        if locationManagerVM.currentLocation == nil {
+            startingVertex = locationVertex[startingPointText] ?? -1
+        } else {
+            startingVertex = findClosestLocationIndex(to: locationManagerVM.currentLocation!, from: locations) ?? -1
         }
-        return []
+        let destinationVertex = locationVertex[destinationPointText] ?? -1
+        let startTime = DispatchTime.now()
+        pathResult = dijkstra(graph: updatedGraph, src: startingVertex, dest: destinationVertex, size: size)
+        let endTime = DispatchTime.now()
+        let nanoseconds = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
+        let milliseconds = Double(nanoseconds) / 1_000_000
+//            print("find class: \(pathResult)")
+        print("Runtime: \(milliseconds) milliseconds")
+        return pathResult
+ 
     }
 
-    func findClosestLocation(to userLocation: CLLocationCoordinate2D, from locations: [Locations]) -> Locations? {
+    func findClosestLocationIndex(to userLocation: CLLocationCoordinate2D, from locations: [Locations]) -> Int? {
         guard !locations.isEmpty else { return nil }
         
-        var closestLocation: Locations?
+        var closestIndex: Int?
         var smallestDistance: CLLocationDistance = .greatestFiniteMagnitude
         
         let userCLLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
         
-        for location in locations {
+        for (index, location) in locations.enumerated() {
             let locationCLLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             let distance = userCLLocation.distance(from: locationCLLocation)
             
             if distance < smallestDistance {
                 smallestDistance = distance
-                closestLocation = location
+                closestIndex = index
             }
         }
         
-        return closestLocation
+        return closestIndex
     }
+
 
     
     func getPath(parent: [Int], src: Int, dest: Int, size: Int, distance: [Int]) -> [Locations] {
