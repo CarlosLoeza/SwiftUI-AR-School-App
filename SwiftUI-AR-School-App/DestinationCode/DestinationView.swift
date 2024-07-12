@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import MapKit
 
 @available(iOS 17.0, *)
 struct DestinationView: View {
-    @StateObject var destinationVM : DestinationVM
-    @State var duplicateLocations = false
+    @StateObject var destinationVM = DestinationVM()
+    @EnvironmentObject var locationManagerVM : LocationManagerVM
+    
     var body: some View {
         NavigationView {
             GeometryReader{ geometry in
@@ -37,17 +39,20 @@ struct DestinationView: View {
                                     destinationVM.isStartingButtonClicked.toggle()
                                     destinationVM.isDestinationButtonClicked = false
                                 }, label: {
-                                    
-                                    Text(destinationVM.startingPointText)
-                                        .font(.headline)
-                                        .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.07)
-                                        .background(RoundedRectangle(cornerRadius:8).fill(Color.white))
-                                        .foregroundColor(.black)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(Color.yellow, lineWidth: 2)
+                                    ZStack {
+                                        Text(destinationVM.startingPointText)
+                                            .font(.headline)
+                                            .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.07)
+                                            .background(RoundedRectangle(cornerRadius:8).fill(Color.white))
+                                            .foregroundColor(.black)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .stroke(Color.yellow, lineWidth: 2)
                                         )
-                                        .padding()
+                                        LocationButton(size: geometry.size, locationManagerVM: locationManagerVM)
+                                            .offset(x: geometry.size.width * 0.35)
+                                    }
+                                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.07)
                                 })
                                 Spacer()
                             }
@@ -57,7 +62,7 @@ struct DestinationView: View {
                         // UI: destination picker wheel and select button
                         VStack {
                             if destinationVM.isStartingButtonClicked {
-                                DestinationPickerWheel(selectedText: $destinationVM.startingPointText, placeHolderText: "Select Starting Point", destinations: destinationVM.destinations)
+                                DestinationPickerWheel(selectedText: $destinationVM.startingPointText, placeHolderText: "Select Starting Point", destinations: destinationVM.currentList)
                                     .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.22)
                                     .pickerStyle(.wheel)
                                     .background(RoundedRectangle(cornerRadius:8).fill(destinationVM.lightPurple))
@@ -76,15 +81,12 @@ struct DestinationView: View {
                                             RoundedRectangle(cornerRadius: 8)
                                                 .stroke(Color.yellow, lineWidth: 2)
                                         )
-                                    
-                                    
                                 })
                             }
                         }
                         .zIndex(1)
                         .padding(.top, geometry.size.height * 0.025)
                         Spacer()
-                        
                         
                         VStack{
                             Spacer()
@@ -122,7 +124,6 @@ struct DestinationView: View {
                                         RoundedRectangle(cornerRadius: 8)
                                             .stroke(Color.yellow, lineWidth: 2)
                                     )
-                                
                                 Button(action: {
                                     destinationVM.isDestinationButtonClicked = false
                                 }, label: {
@@ -145,7 +146,8 @@ struct DestinationView: View {
                             Spacer()
                             Spacer()
                             Spacer()
-                            if destinationVM.startingPointText != destinationVM.startingPlaceholderText && destinationVM.destinationPointText != destinationVM.destinationPlaceholderText {
+                            if destinationVM.startingPointText != destinationVM.startingPlaceholderText && 
+                                destinationVM.destinationPointText != destinationVM.destinationPlaceholderText {
                                 NavigationLink(destination: MapView(startingPointText: destinationVM.startingPointText, destinationPointText: destinationVM.destinationPointText).navigationBarBackButtonHidden(true)) {
                                     Text(destinationVM.classText)
                                         .font(.headline)
@@ -158,16 +160,54 @@ struct DestinationView: View {
                                         )
                                 }
                             }
+                            Button("Open Settings") {
+                                // Get the settings URL and open it
+                                if let url = URL(string: UIApplication.openSettingsURLString) {
+                                    UIApplication.shared.open(url)
+                                }
+                            } 
+                            VStack{
+                                if let currentLocation = locationManagerVM.currentLocation {
+                                    Text("Latitude: \(currentLocation.latitude)")
+                                    Text("Longitude: \(currentLocation.longitude)")
+                                } else {
+                                    Text("Retrieving location...")
+                                }
+                            }
+                            .background(.green)
                             Spacer()
                         }
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(red: 60.0/255, green: 58.0/255, blue: 100.0/255))
+                .onAppear{
+                    destinationVM.startingPointText = "Select Starting Point"
+                    destinationVM.destinationPointText = "Select Destination Point"
+                    destinationVM.getList(authorizationStatus: locationManagerVM.authorizationStatus)
+                }
+                .onChange(of: locationManagerVM.authorizationStatus) {
+                    destinationVM.startingPointText = "Select Starting Point"
+                    destinationVM.getList(authorizationStatus: locationManagerVM.authorizationStatus)
+                }
+                .alert(isPresented: $locationManagerVM.showAlert) {
+                    Alert(
+                        title: Text("Location Access Denied"),
+                        message: Text("To enable location access, please go to Settings and allow location access for this app."),
+                        primaryButton: .default(Text("Settings"), action: {
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                            }
+                        }),
+                        secondaryButton: .cancel()
+                    )
+                }
             }
         }
     }
 }
+
+
 
 @available(iOS 17.0, *)
 #Preview {

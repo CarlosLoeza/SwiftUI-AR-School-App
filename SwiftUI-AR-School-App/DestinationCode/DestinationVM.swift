@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 class DestinationVM: ObservableObject {
     @Published var startingPointText = "Select Starting Point"
@@ -17,6 +18,8 @@ class DestinationVM: ObservableObject {
     let destinationPlaceholderText = "Select Destination Point"
     let selectText = "Select"
     let classText = "Find Class"
+    var currentList : [String] = []
+
     
     let destinations: [String] = [ "-- Select One --",
                                    "Admissions",
@@ -27,4 +30,22 @@ class DestinationVM: ObservableObject {
                                    "Fine Arts",
                                    "J. Paul Leonard Library"
                                  ]
+    let destinationsWithLocation: [String] = [ "-- Select One --",
+                                   "Current Location",
+                                   "Admissions",
+                                   "Burk Hall",
+                                   "Business",
+                                   "Creative Arts",
+                                   "Cesar Chavez Student Center",
+                                   "Fine Arts",
+                                   "J. Paul Leonard Library"
+                                 ]
+    
+    func getList(authorizationStatus: CLAuthorizationStatus) {
+        if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
+            self.currentList = destinationsWithLocation
+        } else {
+            self.currentList = destinations
+        }
+    }
 }

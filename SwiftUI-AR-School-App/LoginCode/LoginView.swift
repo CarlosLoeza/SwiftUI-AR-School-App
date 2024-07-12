@@ -12,7 +12,7 @@ struct LoginView: View {
     
     var body: some View {
         VStack {
-            
+            Spacer()
             Text("Welcome")
 //                .font(.title)
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)

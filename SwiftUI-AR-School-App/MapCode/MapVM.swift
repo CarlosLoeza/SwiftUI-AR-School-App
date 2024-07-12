@@ -112,24 +112,52 @@ class MapVM: ObservableObject {
                             "J. Paul Leonard Library": 5
                          ]
     
-    func findClassRoute(startingPointText: String, destinationPointText: String) -> [Locations]{
+    func findClassRoute(startingPointText: String, destinationPointText: String, currentLocation: CLLocationCoordinate2D?) -> [Locations]{
         var pathResult: [Locations] = []
-        if startingPointText != "Select Starting Point" && destinationPointText != "Select Destination Point" {
-            let startingVertex = locationVertex[startingPointText] ?? -1
-            let destinationVertex = locationVertex[destinationPointText] ?? -1
-            let startTime = DispatchTime.now()
-            pathResult = dijkstra(graph: updatedGraph, src: startingVertex, dest: destinationVertex, size: size)
-            let endTime = DispatchTime.now()
-            let nanoseconds = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
-            let milliseconds = Double(nanoseconds) / 1_000_000
-//            print("find class: \(pathResult)")
-            print("Runtime: \(milliseconds) milliseconds")
-            return pathResult
-            
+        let startingVertex : Int
+        
+        if let currentLocation = currentLocation {
+            print("current location: \(currentLocation)")
+            startingVertex = findClosestLocationIndex(to: currentLocation, from: locations) ?? -1
+            print("sVertex: \(startingVertex)")
+        } else {
+            startingVertex = locationVertex[startingPointText] ?? -1
         }
-        return []
+        let destinationVertex = locationVertex[destinationPointText] ?? -1
+        print("starting: \(startingVertex)")
+        print("destination: \(destinationPointText)")
+        let startTime = DispatchTime.now()
+        pathResult = dijkstra(graph: updatedGraph, src: startingVertex, dest: destinationVertex, size: size)
+        let endTime = DispatchTime.now()
+        let nanoseconds = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
+        let milliseconds = Double(nanoseconds) / 1_000_000
+        print("Runtime: \(milliseconds) milliseconds")
+        return pathResult
+ 
     }
-   
+
+    func findClosestLocationIndex(to userLocation: CLLocationCoordinate2D, from locations: [Locations]) -> Int? {
+        guard !locations.isEmpty else { return nil }
+        
+        var closestIndex: Int?
+        var smallestDistance: CLLocationDistance = .greatestFiniteMagnitude
+        
+        let userCLLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+        
+        for (index, location) in locations.enumerated() {
+            let locationCLLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            let distance = userCLLocation.distance(from: locationCLLocation)
+            
+            if distance < smallestDistance {
+                smallestDistance = distance
+                closestIndex = index
+            }
+        }
+        
+        return closestIndex
+    }
+
+
     
     func getPath(parent: [Int], src: Int, dest: Int, size: Int, distance: [Int]) -> [Locations] {
         var currentVertex = dest
@@ -165,6 +193,7 @@ class MapVM: ObservableObject {
 
     // Updated Dijkstra's algorithm using priority queue
     func dijkstra(graph: [[Int]], src: Int, dest: Int, size: Int) -> [Locations] {
+        print("source \(src)")
         var distance = [Int](repeating: Int.max, count: size)
         var parent = [Int](repeating: -1, count: size)
         distance[src] = 0
