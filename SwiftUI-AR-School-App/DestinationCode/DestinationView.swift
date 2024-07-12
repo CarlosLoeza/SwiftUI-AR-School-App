@@ -147,7 +147,8 @@ struct DestinationView: View {
                             Spacer()
                             Spacer()
                             Spacer()
-                            if destinationVM.startingPointText != destinationVM.startingPlaceholderText && destinationVM.destinationPointText != destinationVM.destinationPlaceholderText {
+                            if destinationVM.startingPointText != destinationVM.startingPlaceholderText && 
+                                destinationVM.destinationPointText != destinationVM.destinationPlaceholderText {
                                 NavigationLink(destination: MapView(startingPointText: destinationVM.startingPointText, destinationPointText: destinationVM.destinationPointText).navigationBarBackButtonHidden(true)) {
                                     Text(destinationVM.classText)
                                         .font(.headline)
@@ -165,7 +166,7 @@ struct DestinationView: View {
                                 if let url = URL(string: UIApplication.openSettingsURLString) {
                                     UIApplication.shared.open(url)
                                 }
-                            }
+                            } 
                             Spacer()
                         }
                     }

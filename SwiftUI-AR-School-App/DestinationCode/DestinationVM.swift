@@ -9,6 +9,7 @@ import SwiftUI
 import CoreLocation
 
 class DestinationVM: ObservableObject {
+    
     @Published var startingPointText = "Select Starting Point"
     @Published var destinationPointText = "Select Destination Point"
     @Published var isStartingButtonClicked = false
@@ -18,6 +19,7 @@ class DestinationVM: ObservableObject {
     let destinationPlaceholderText = "Select Destination Point"
     let selectText = "Select"
     let classText = "Find Class"
+//    let currentList : [String]
     
     let destinations: [String] = [ "-- Select One --",
                                    "Admissions",
@@ -28,6 +30,21 @@ class DestinationVM: ObservableObject {
                                    "Fine Arts",
                                    "J. Paul Leonard Library"
                                  ]
+    let destinationsWithLocation: [String] = [ "-- Select One --",
+                                   "Admissions",
+                                   "Burk Hall",
+                                   "Business",
+                                   "Creative Arts",
+                                   "Cesar Chavez Student Center",
+                                   "Fine Arts",
+                                   "J. Paul Leonard Library"
+                                 ]
+//    
+//    init() {
+//        currentList =
+//    }
+//    
+//    func getList()
 }
 
 /*

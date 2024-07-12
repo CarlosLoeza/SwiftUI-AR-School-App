@@ -17,6 +17,7 @@ struct Locations: Identifiable {
 
 class MapVM: ObservableObject {
     @Published var vPath : [Locations] = []
+    @StateObject var locationManagerVM = LocationManagerVM()
     let size = 32
     var path : [Int] = []
     
@@ -129,7 +130,28 @@ class MapVM: ObservableObject {
         }
         return []
     }
-   
+
+    func findClosestLocation(to userLocation: CLLocationCoordinate2D, from locations: [Locations]) -> Locations? {
+        guard !locations.isEmpty else { return nil }
+        
+        var closestLocation: Locations?
+        var smallestDistance: CLLocationDistance = .greatestFiniteMagnitude
+        
+        let userCLLocation = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+        
+        for location in locations {
+            let locationCLLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            let distance = userCLLocation.distance(from: locationCLLocation)
+            
+            if distance < smallestDistance {
+                smallestDistance = distance
+                closestLocation = location
+            }
+        }
+        
+        return closestLocation
+    }
+
     
     func getPath(parent: [Int], src: Int, dest: Int, size: Int, distance: [Int]) -> [Locations] {
         var currentVertex = dest

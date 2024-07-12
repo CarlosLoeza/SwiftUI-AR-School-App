@@ -16,6 +16,7 @@ class LocationManagerVM: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var authorizationStatus: CLAuthorizationStatus
     // Published property shows an alert box when the user has denied location access
     @Published var showAlert: Bool = false
+    @Published var currentLocation: CLLocationCoordinate2D?
 
     // Initializer for the LocationManager class
     override init() {
@@ -23,11 +24,20 @@ class LocationManagerVM: NSObject, ObservableObject, CLLocationManagerDelegate {
         self.authorizationStatus = CLLocationManager.authorizationStatus()
         super.init() // Call to superclass initializer
         self.locationManager.delegate = self // Set the delegate to self to handle CLLocationManagerDelegate methods
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
     // Function to request location permissions
     func requestPermission() {
         locationManager.requestWhenInUseAuthorization() // Request permission to use location services when the app is in use
+    }
+    
+    func startUpdatingLocation() {
+           locationManager.startUpdatingLocation()
+       }
+       
+    func stopUpdatingLocation() {
+        locationManager.stopUpdatingLocation()
     }
     
     // Delegate method that gets called when the authorization status changes
@@ -38,9 +48,22 @@ class LocationManagerVM: NSObject, ObservableObject, CLLocationManagerDelegate {
             // If our location status is denied, show the alert box
             if self.authorizationStatus == .denied {
                 self.showAlert = true
+                self.currentLocation = nil
+            } else if self.authorizationStatus == .authorizedWhenInUse || self.authorizationStatus == .authorizedAlways {
+                self.startUpdatingLocation()
+            } else if self.authorizationStatus == .notDetermined {
+                self.currentLocation = nil
             }
-            
-            
+        }
+    }
+    
+    // Delegate method that gets called when new location data is available
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            DispatchQueue.main.async {
+                self.currentLocation = location.coordinate
+                self.stopUpdatingLocation() // Stop updates to save battery life
+            }
         }
     }
 }
