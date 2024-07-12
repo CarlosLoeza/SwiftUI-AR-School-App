@@ -12,6 +12,7 @@ import MapKit
 struct DestinationView: View {
     @StateObject var destinationVM = DestinationVM()
     @EnvironmentObject var locationManagerVM : LocationManagerVM
+    @Binding var selectedTab: Int
     
     var body: some View {
         NavigationView {
@@ -148,7 +149,7 @@ struct DestinationView: View {
                             Spacer()
                             if destinationVM.startingPointText != destinationVM.startingPlaceholderText && 
                                 destinationVM.destinationPointText != destinationVM.destinationPlaceholderText {
-                                NavigationLink(destination: MapView(startingPointText: destinationVM.startingPointText, destinationPointText: destinationVM.destinationPointText).navigationBarBackButtonHidden(true)) {
+                                NavigationLink(destination: MapView(selectedTab: $selectedTab, startingPointText: destinationVM.startingPointText, destinationPointText: destinationVM.destinationPointText).navigationBarBackButtonHidden(true)) {
                                     Text(destinationVM.classText)
                                         .font(.headline)
                                         .frame(width: geometry.size.width * 0.5, height: geometry.size.height * 0.06)
@@ -166,15 +167,15 @@ struct DestinationView: View {
                                     UIApplication.shared.open(url)
                                 }
                             } 
-                            VStack{
-                                if let currentLocation = locationManagerVM.currentLocation {
-                                    Text("Latitude: \(currentLocation.latitude)")
-                                    Text("Longitude: \(currentLocation.longitude)")
-                                } else {
-                                    Text("Retrieving location...")
-                                }
-                            }
-                            .background(.green)
+//                            VStack{
+//                                if let currentLocation = locationManagerVM.currentLocation {
+//                                    Text("Latitude: \(currentLocation.latitude)")
+//                                    Text("Longitude: \(currentLocation.longitude)")
+//                                } else {
+//                                    Text("Retrieving location...")
+//                                }
+//                            }
+//                            .background(.green)
                             Spacer()
                         }
                     }
@@ -209,7 +210,8 @@ struct DestinationView: View {
 
 
 
-@available(iOS 17.0, *)
-#Preview {
-    DestinationView(destinationVM: DestinationVM())
-}
+//@available(iOS 17.0, *)
+//#Preview {
+//    @State var tab = 2
+//    DestinationView(destinationVM: DestinationVM(), selectedTab: $tab)
+//}

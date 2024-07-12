@@ -16,6 +16,7 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var locationManagerVM: LocationManagerVM
     @AppStorage("signIn") private var isSignIn = false
+    @State private var selectedTab = 0
 
     var body: some View {
         VStack {
@@ -23,8 +24,27 @@ struct ContentView: View {
                 LoginView(loginVM: LoginVM())
                     .environmentObject(locationManagerVM)
             } else {
-                DestinationView()
-                    .environmentObject(locationManagerVM)
+                TabView(selection: $selectedTab) {
+                    DestinationView(selectedTab: $selectedTab)
+                        .tabItem {
+                            Image(systemName: "figure.walk")
+                            Text("Path")
+                        }
+                        .tag(0)
+                    
+                    MapView(selectedTab: $selectedTab)
+                        .tabItem {
+                            Image(systemName: "map")
+//                            Image(systemName: "magnifyingglass")
+                            Text("Map")
+                        }
+                        .tag(1)
+                }
+                .onAppear {
+                    UITabBar.appearance().backgroundColor = .systemGray2
+                }
+//                DestinationView()
+//                    .environmentObject(locationManagerVM)
             }
         }
     }

@@ -15,6 +15,7 @@ struct Locations: Identifiable {
     let coordinate: CLLocationCoordinate2D
 }
 
+@available(iOS 17.0, *)
 class MapVM: ObservableObject {
     @Published var vPath : [Locations] = []
     let size = 32
@@ -116,9 +117,9 @@ class MapVM: ObservableObject {
         var pathResult: [Locations] = []
         let startingVertex : Int
         
-        if let currentLocation = currentLocation {
-            print("current location: \(currentLocation)")
-            startingVertex = findClosestLocationIndex(to: currentLocation, from: locations) ?? -1
+        if (currentLocation != nil && startingPointText == "Current Location"){
+            print("current location: \(currentLocation!)")
+            startingVertex = findClosestLocationIndex(to: currentLocation!, from: locations) ?? -1
             print("sVertex: \(startingVertex)")
         } else {
             startingVertex = locationVertex[startingPointText] ?? -1
@@ -133,8 +134,19 @@ class MapVM: ObservableObject {
         let milliseconds = Double(nanoseconds) / 1_000_000
         print("Runtime: \(milliseconds) milliseconds")
         return pathResult
- 
     }
+    
+    func getSchoolBuildings() -> [Locations] {
+        var buildings : [Locations] = []
+        
+        for location in locationVertex {
+            print("value: \(locations[location.value])")
+            buildings.insert(locations[location.value], at: 0)
+            print("")
+        }
+        return buildings
+    }
+    
 
     func findClosestLocationIndex(to userLocation: CLLocationCoordinate2D, from locations: [Locations]) -> Int? {
         guard !locations.isEmpty else { return nil }
@@ -153,10 +165,8 @@ class MapVM: ObservableObject {
                 closestIndex = index
             }
         }
-        
         return closestIndex
     }
-
 
     
     func getPath(parent: [Int], src: Int, dest: Int, size: Int, distance: [Int]) -> [Locations] {
@@ -218,7 +228,20 @@ class MapVM: ObservableObject {
         return pathResult
     }
     
-    @available(iOS 17.0, *)
+    
+    func annotateBuildings(i:Int)-> Annotation<Text, some View>{
+        return Annotation(vPath[i].name, coordinate: vPath[i].coordinate,
+                    anchor: .bottom
+        ) {
+            Image(systemName: "building.2.crop.circle.fill")
+                .padding (4)
+                .foregroundStyle(.white)
+                .background(Color.indigo)
+                .cornerRadius (5)
+        }
+    }
+    
+    
     func decideAnnotationType(i: Int)-> Annotation<Text, some View>{
         if (i == 0) {
             return Annotation(vPath[i].name, coordinate: vPath[i].coordinate,
@@ -241,7 +264,7 @@ class MapVM: ObservableObject {
                     .cornerRadius (5)
             }
         } else {
-            return Annotation( "", coordinate: vPath[i].coordinate,
+            return Annotation("", coordinate: vPath[i].coordinate,
                         anchor: .bottom
             ) {
                 Image(systemName: "figure.walk.circle.fill")

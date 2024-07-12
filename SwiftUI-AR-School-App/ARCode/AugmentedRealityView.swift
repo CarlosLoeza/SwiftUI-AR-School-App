@@ -31,8 +31,8 @@ struct AugmentedRealityView: View {
                         Spacer()
                         // go to AR view
                         NavigationLink {
-                            DestinationView(destinationVM: DestinationVM())
-                                .navigationBarBackButtonHidden(true)
+//                            DestinationView(destinationVM: DestinationVM())
+//                                .navigationBarBackButtonHidden(true)
                         } label: {
                             MapImageButton(imageName: "figure.walk.circle.fill")
                         }

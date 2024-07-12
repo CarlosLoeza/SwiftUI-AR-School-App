@@ -16,9 +16,10 @@ struct MapView: View {
     @State var campusPositionStart: MapCameraPosition = .automatic
     @State private var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     @EnvironmentObject var locationManagerVM : LocationManagerVM
+    @Binding var selectedTab: Int
     
-    let startingPointText: String
-    let destinationPointText: String
+    var startingPointText: String?
+    var destinationPointText: String?
 
     
     var body: some View {
@@ -26,10 +27,17 @@ struct MapView: View {
             GeometryReader { geometry in
                 ZStack{
                     Map(position: $campusPositionStart ) {
-                        ForEach(0..<mapVM.vPath.count, id: \.self) { i in
-                            // decide what map annotation to show based on i
-                            mapVM.decideAnnotationType(i: i)
+                        if startingPointText == nil || destinationPointText == nil {
+                            ForEach(0..<mapVM.vPath.count, id: \.self) { i in
+                                // decide what map annotation to show based on i
+                                mapVM.annotateBuildings(i: i)
+                            }
+                        } else {
+                            ForEach(0..<mapVM.vPath.count, id: \.self) { i in
+                                mapVM.decideAnnotationType(i: i)
+                            }
                         }
+                        
                     }
                     .mapControls{
                         MapUserLocationButton()
@@ -41,16 +49,17 @@ struct MapView: View {
                     VStack {
                         Spacer()
                         // go to AR view
-                        NavigationLink {
-                            AugmentedRealityView(mapCoords: mapVM.vPath)
-                                .navigationBarBackButtonHidden(true)
-                                .ignoresSafeArea(.all)
-                        } label: {
-                            MapImageButton(imageName: "binoculars.fill")
-                        }
+//                        NavigationLink {
+//                            AugmentedRealityView(mapCoords: mapVM.vPath)
+//                                .navigationBarBackButtonHidden(true)
+//                                .ignoresSafeArea(.all)
+//                        } label: {
+//                            MapImageButton(imageName: "binoculars.fill")
+//                        }
                         // go to previous screen, selecting destination
                         Button(action: {
                             presentationMode.wrappedValue.dismiss()
+                            selectedTab = 0
                         }, label: {
                             MapImageButton(imageName: "figure.walk.circle.fill")
                         })
@@ -62,31 +71,27 @@ struct MapView: View {
                     .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
                 }
                 .mapStyle(.hybrid(elevation: .realistic))
-//                .edgesIgnoringSafeArea(.all)
-
-//                NavigationLink {
-//                    AugmentedRealityView(mapCoords: mapVM.vPath)
-//                        .ignoresSafeArea(.all)
-//                } label: {
-//                    Text("Tap me")
-//                        .frame(width: 50, height: 50)
-//                        .background(.thinMaterial)
-//                        .padding(.leading, 275)
-//                        .padding(.bottom, 550)
-//                }
                 .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
             }
         }
         .onAppear {
             CLLocationManager().requestWhenInUseAuthorization()
-            mapVM.vPath = mapVM.findClassRoute(startingPointText: startingPointText, destinationPointText: destinationPointText, currentLocation: locationManagerVM.currentLocation)
+            if (startingPointText != nil || destinationPointText != nil){
+                print("starting: \(startingPointText)")
+                print("destination: \(destinationPointText)")
+                mapVM.vPath = mapVM.findClassRoute(startingPointText: startingPointText!, destinationPointText: destinationPointText!, currentLocation: locationManagerVM.currentLocation)
+            } else {
+                mapVM.vPath = mapVM.getSchoolBuildings()
+            }
            
         }
     }
 }
 
-@available(iOS 17.0, *)
-#Preview {
-    MapView(startingPointText: "Admissions", destinationPointText: "Creative Arts")
-}
+//@available(iOS 17.0, *)
+
+//#Preview {
+//    @State var selectedTab = 2
+//    MapView(selectedTab: $selectedTab, startingPointText: "Admissions", destinationPointText: "Creative Arts")
+//}
 
