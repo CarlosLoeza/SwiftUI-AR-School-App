@@ -17,7 +17,6 @@ struct Locations: Identifiable {
 
 class MapVM: ObservableObject {
     @Published var vPath : [Locations] = []
-    @StateObject var locationManagerVM = LocationManagerVM()
     let size = 32
     var path : [Int] = []
     
@@ -113,15 +112,23 @@ class MapVM: ObservableObject {
                             "J. Paul Leonard Library": 5
                          ]
     
-    func findClassRoute(startingPointText: String, destinationPointText: String) -> [Locations]{
+    func findClassRoute(startingPointText: String, destinationPointText: String, currentLocation: CLLocationCoordinate2D?) -> [Locations]{
         var pathResult: [Locations] = []
         let startingVertex : Int
-        if locationManagerVM.currentLocation == nil {
+    
+        
+        print("location: \(currentLocation)")
+        if currentLocation == nil {
             startingVertex = locationVertex[startingPointText] ?? -1
         } else {
-            startingVertex = findClosestLocationIndex(to: locationManagerVM.currentLocation!, from: locations) ?? -1
+            startingVertex = findClosestLocationIndex(to: CLLocationCoordinate2D(latitude: 37.722421, longitude: -122.479055), from: locations) ?? -1
+            print("sVertex: \(startingVertex)")
+ 
         }
+        
         let destinationVertex = locationVertex[destinationPointText] ?? -1
+        print("starting: \(startingVertex)")
+        print("destination: \(destinationPointText)")
         let startTime = DispatchTime.now()
         pathResult = dijkstra(graph: updatedGraph, src: startingVertex, dest: destinationVertex, size: size)
         let endTime = DispatchTime.now()
@@ -190,6 +197,7 @@ class MapVM: ObservableObject {
 
     // Updated Dijkstra's algorithm using priority queue
     func dijkstra(graph: [[Int]], src: Int, dest: Int, size: Int) -> [Locations] {
+        print("source \(src)")
         var distance = [Int](repeating: Int.max, count: size)
         var parent = [Int](repeating: -1, count: size)
         distance[src] = 0

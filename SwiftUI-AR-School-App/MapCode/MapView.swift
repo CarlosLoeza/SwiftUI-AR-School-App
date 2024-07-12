@@ -15,6 +15,7 @@ struct MapView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var campusPositionStart: MapCameraPosition = .automatic
     @State private var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+    @EnvironmentObject var locationManagerVM : LocationManagerVM
     
     let startingPointText: String
     let destinationPointText: String
@@ -78,8 +79,8 @@ struct MapView: View {
         }
         .onAppear {
             CLLocationManager().requestWhenInUseAuthorization()
-            mapVM.vPath = mapVM.findClassRoute(startingPointText: startingPointText, destinationPointText: destinationPointText)
-            
+            mapVM.vPath = mapVM.findClassRoute(startingPointText: startingPointText, destinationPointText: destinationPointText, currentLocation: locationManagerVM.currentLocation)
+           
         }
     }
 }

@@ -11,7 +11,7 @@ import MapKit
 @available(iOS 17.0, *)
 struct DestinationView: View {
     @StateObject var destinationVM = DestinationVM()
-    @StateObject var locationManagerVM = LocationManagerVM()
+    @EnvironmentObject var locationManagerVM : LocationManagerVM
     @State private var authorizationStatus: CLAuthorizationStatus = .notDetermined
     
     var body: some View {
@@ -63,7 +63,7 @@ struct DestinationView: View {
                         // UI: destination picker wheel and select button
                         VStack {
                             if destinationVM.isStartingButtonClicked {
-                                DestinationPickerWheel(selectedText: $destinationVM.startingPointText, placeHolderText: "Select Starting Point", destinations: destinationVM.destinations)
+                                DestinationPickerWheel(selectedText: $destinationVM.startingPointText, placeHolderText: "Select Starting Point", destinations: destinationVM.currentList)
                                     .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.22)
                                     .pickerStyle(.wheel)
                                     .background(RoundedRectangle(cornerRadius:8).fill(destinationVM.lightPurple))
@@ -167,6 +167,15 @@ struct DestinationView: View {
                                     UIApplication.shared.open(url)
                                 }
                             } 
+                            VStack{
+                                if let currentLocation = locationManagerVM.currentLocation {
+                                    Text("Latitude: \(currentLocation.latitude)")
+                                    Text("Longitude: \(currentLocation.longitude)")
+                                } else {
+                                    Text("Retrieving location...")
+                                }
+                            }
+                            .background(.green)
                             Spacer()
                         }
                     }
@@ -176,6 +185,8 @@ struct DestinationView: View {
                 .onAppear{
                     destinationVM.startingPointText = "Select Starting Point"
                     destinationVM.destinationPointText = "Select Destination Point"
+                    destinationVM.getList(authorizationStatus: locationManagerVM.authorizationStatus)
+                                    
                 }
                 .alert(isPresented: $locationManagerVM.showAlert) {
                             Alert(

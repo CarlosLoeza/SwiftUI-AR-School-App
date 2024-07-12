@@ -16,6 +16,7 @@ class LocationManagerVM: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var authorizationStatus: CLAuthorizationStatus
     // Published property shows an alert box when the user has denied location access
     @Published var showAlert: Bool = false
+    // Published property is used to save the user's location
     @Published var currentLocation: CLLocationCoordinate2D?
 
     // Initializer for the LocationManager class
