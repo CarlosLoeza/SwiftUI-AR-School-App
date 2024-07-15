@@ -32,7 +32,7 @@ struct MapView: View {
                         if startingPointText == nil || destinationPointText == nil {
                             ForEach(0..<mapVM.vPath.count, id: \.self) { i in
                                 // decide what map annotation to show based on i
-                                mapVM.annotateBuildings(i: i)
+                                mapVM.annotateBuildings(i: i, image: "building.2.crop.circle.fill" )
                             }
                         } else {
                             ForEach(0..<mapVM.vPath.count, id: \.self) { i in
@@ -53,28 +53,28 @@ struct MapView: View {
                         Spacer()
                             HStack {
                                 ScrollView(.horizontal, showsIndicators: false) {
-                                                        HStack(spacing: 10) {
-                                                            MapIconButton(icon: "building.2.fill", label: "Buildings", isSelected: selectedButton == "Home") {
-                                                                selectedButton = "Home"
-                                                            }
-                                                            .frame(width: 80, height: 100)
-                                                            MapIconButton(icon: "figure.dress.line.vertical.figure", label: "Bathroom", isSelected: selectedButton == "Work") {
-                                                                selectedButton = "Work"
-                                                            }
-                                                            .frame(width: 80, height: 100)
-                                                            MapIconButton(icon: "takeoutbag.and.cup.and.straw.fill", label: "Food", isSelected: selectedButton == "Computer") {
-                                                                selectedButton = "Computer"
-                                                            }
-                                                            .frame(width: 80, height: 100)
-                                                            MapIconButton(icon: "person.2.fill", label: "Events", isSelected: selectedButton == "6916 Pacific Ave") {
-                                                                selectedButton = "6916 Pacific Ave"
-                                                            }
-                                                            .frame(width: 80, height: 100)
-                                                        }
-                                                        .padding(.leading, 15)
-                                                        .padding(.bottom, -5)
-                                                    }
-                                                    .padding(5)
+                                    HStack(spacing: 10) {
+                                        MapIconButton(icon: "building.2.fill", label: "Buildings", isSelected: selectedButton == "Buildings") {
+                                            selectedButton = "Buildings"
+                                        }
+                                        .frame(width: 80, height: 100)
+                                        MapIconButton(icon: "figure.dress.line.vertical.figure", label: "Bathroom", isSelected: selectedButton == "Bathroom") {
+                                            selectedButton = "Bathroom"
+                                        }
+                                        .frame(width: 80, height: 100)
+                                        MapIconButton(icon: "takeoutbag.and.cup.and.straw.fill", label: "Food", isSelected: selectedButton == "Food") {
+                                            selectedButton = "Food"
+                                        }
+                                        .frame(width: 80, height: 100)
+                                        MapIconButton(icon: "person.2.fill", label: "Events", isSelected: selectedButton == "Events") {
+                                            selectedButton = "Events"
+                                        }
+                                        .frame(width: 80, height: 100)
+                                    }
+                                    .padding(.leading, 15)
+                                    .padding(.bottom, -5)
+                                }
+                                .padding(5)
                                 Spacer()
                         }
                         .background(Color(.systemGray6).opacity(0.8))
