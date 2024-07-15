@@ -39,6 +39,7 @@
 		07C76D562C2CE66A008F7069 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07C76D552C2CE66A008F7069 /* GoogleService-Info.plist */; };
 		07C76D582C3DE1EB008F7069 /* LocationManagerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C76D572C3DE1EA008F7069 /* LocationManagerVM.swift */; };
 		07C76DA92C407B56008F7069 /* LocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C76DA82C407B55008F7069 /* LocationButton.swift */; };
+		07C76DE22C45D68C008F7069 /* MapIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C76DE12C45D68C008F7069 /* MapIconButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		07C76D572C3DE1EA008F7069 /* LocationManagerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerVM.swift; sourceTree = "<group>"; };
 		07C76DA82C407B55008F7069 /* LocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationButton.swift; sourceTree = "<group>"; };
 		07C76DAA2C40B94A008F7069 /*  MockUserLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = " MockUserLocation.gpx"; sourceTree = "<group>"; };
+		07C76DE12C45D68C008F7069 /* MapIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapIconButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 			children = (
 				079FD67E2B9FAB17008E07EA /* MapView.swift */,
 				079FD6802B9FAB21008E07EA /* MapVM.swift */,
+				07C76DE12C45D68C008F7069 /* MapIconButton.swift */,
 			);
 			path = MapCode;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				075B1A1E2BA4CEBA002C67A9 /* AugmentedRealityView.swift in Sources */,
 				07B81FC32BF6ED5F00CE0C6A /* LoginView.swift in Sources */,
 				07526D782BC5C2DD00726F58 /* MapImageButton.swift in Sources */,
+				07C76DE22C45D68C008F7069 /* MapIconButton.swift in Sources */,
 				072B08F72C24DCC700178C61 /* AppDelegate.swift in Sources */,
 				07B81FCB2BF6EE4F00CE0C6A /* Profile.swift in Sources */,
 				079FD6372B9EB5BF008E07EA /* DestinationView.swift in Sources */,

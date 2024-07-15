@@ -20,6 +20,8 @@ struct MapView: View {
     
     var startingPointText: String?
     var destinationPointText: String?
+    
+    @State private var selectedButton: String? = nil
 
     
     var body: some View {
@@ -46,6 +48,45 @@ struct MapView: View {
                     .mapStyle(.hybrid(elevation: .realistic))
 //                    .edgesIgnoringSafeArea(.all)
                     
+                    
+                    VStack {
+                        Spacer()
+                            HStack {
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                                        HStack(spacing: 10) {
+                                                            MapIconButton(icon: "building.2.fill", label: "Buildings", isSelected: selectedButton == "Home") {
+                                                                selectedButton = "Home"
+                                                            }
+                                                            .frame(width: 80, height: 100)
+                                                            MapIconButton(icon: "figure.dress.line.vertical.figure", label: "Bathroom", isSelected: selectedButton == "Work") {
+                                                                selectedButton = "Work"
+                                                            }
+                                                            .frame(width: 80, height: 100)
+                                                            MapIconButton(icon: "takeoutbag.and.cup.and.straw.fill", label: "Food", isSelected: selectedButton == "Computer") {
+                                                                selectedButton = "Computer"
+                                                            }
+                                                            .frame(width: 80, height: 100)
+                                                            MapIconButton(icon: "person.2.fill", label: "Events", isSelected: selectedButton == "6916 Pacific Ave") {
+                                                                selectedButton = "6916 Pacific Ave"
+                                                            }
+                                                            .frame(width: 80, height: 100)
+                                                        }
+                                                        .padding(.leading, 15)
+                                                        .padding(.bottom, -5)
+                                                    }
+                                                    .padding(5)
+                                Spacer()
+                        }
+                        .background(Color(.systemGray6).opacity(0.8))
+                        .cornerRadius(20)
+                        .shadow(radius: 10)
+        //                .offset(y: isSlideUpViewVisible ? 0 : 300) // Adjust the offset value as needed
+        //                .animation(.easeInOut)
+                        
+                    }
+                    .padding(3)
+                    
+                    
                     VStack {
                         Spacer()
                         // go to AR view
@@ -56,14 +97,16 @@ struct MapView: View {
 //                        } label: {
 //                            MapImageButton(imageName: "binoculars.fill")
 //                        }
-                        // go to previous screen, selecting destination
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                            selectedTab = 0
-                        }, label: {
-                            MapImageButton(imageName: "figure.walk.circle.fill")
-                        })
                         
+                        
+                        // go to previous screen, selecting destination
+//                        Button(action: {
+//                            presentationMode.wrappedValue.dismiss()
+//                            selectedTab = 0
+//                        }, label: {
+//                            MapImageButton(imageName: "figure.walk.circle.fill")
+//                        })
+//                        
                         Spacer()
                     }
                     .padding(.leading, geometry.size.width * 0.75)
@@ -87,6 +130,8 @@ struct MapView: View {
         }
     }
 }
+
+
 
 //@available(iOS 17.0, *)
 
