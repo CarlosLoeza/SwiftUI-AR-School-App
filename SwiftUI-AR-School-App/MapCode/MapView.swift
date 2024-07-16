@@ -20,6 +20,8 @@ struct MapView: View {
     
     var startingPointText: String?
     var destinationPointText: String?
+    
+    @State private var selectedButton: String = ""
 
     
     var body: some View {
@@ -27,14 +29,17 @@ struct MapView: View {
             GeometryReader { geometry in
                 ZStack{
                     Map(position: $campusPositionStart ) {
-                        if startingPointText == nil || destinationPointText == nil {
-                            ForEach(0..<mapVM.vPath.count, id: \.self) { i in
-                                // decide what map annotation to show based on i
-                                mapVM.annotateBuildings(i: i)
-                            }
-                        } else {
+                        if ((startingPointText != nil || destinationPointText != nil) && selectedButton == "") {
                             ForEach(0..<mapVM.vPath.count, id: \.self) { i in
                                 mapVM.decideAnnotationType(i: i)
+                            }
+                        } else if selectedButton == "Bathroom"{
+                            ForEach(0..<mapVM.vPath.count, id: \.self) { i in
+                                mapVM.annotateCampusLocations(i: i, image: "figure.dress.line.vertical.figure")
+                            }
+                        } else if ((selectedButton == "Buildings" || selectedButton == "") && (startingPointText == nil || destinationPointText == nil)){
+                            ForEach(0..<mapVM.vPath.count, id: \.self) { i in
+                                mapVM.annotateCampusLocations(i: i, image: "building.2.fill")
                             }
                         }
                         
@@ -44,11 +49,10 @@ struct MapView: View {
                            
                     }
                     .mapStyle(.hybrid(elevation: .realistic))
-//                    .edgesIgnoringSafeArea(.all)
-                    
-                    VStack {
-                        Spacer()
-                        // go to AR view
+                    MapIconBar(mapVM: mapVM, selectedButton: $selectedButton)
+//                    VStack {
+//                        Spacer()
+//                        // go to AR view
 //                        NavigationLink {
 //                            AugmentedRealityView(mapCoords: mapVM.vPath)
 //                                .navigationBarBackButtonHidden(true)
@@ -56,19 +60,21 @@ struct MapView: View {
 //                        } label: {
 //                            MapImageButton(imageName: "binoculars.fill")
 //                        }
-                        // go to previous screen, selecting destination
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                            selectedTab = 0
-                        }, label: {
-                            MapImageButton(imageName: "figure.walk.circle.fill")
-                        })
-                        
-                        Spacer()
-                    }
-                    .padding(.leading, geometry.size.width * 0.75)
-                    .padding(.top, geometry.size.height * 0.8)
-                    .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
+//                        
+//                        
+//                        // go to previous screen, selecting destination
+//                        Button(action: {
+//                            presentationMode.wrappedValue.dismiss()
+//                            selectedTab = 0
+//                        }, label: {
+//                            MapImageButton(imageName: "figure.walk.circle.fill")
+//                        })
+////
+//                        Spacer()
+//                    }
+//                    .padding(.leading, geometry.size.width * 0.75)
+//                    .padding(.top, geometry.size.height * 0.8)
+//                    .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
                 }
                 .mapStyle(.hybrid(elevation: .realistic))
                 .zIndex(/*@START_MENU_TOKEN@*/1.0/*@END_MENU_TOKEN@*/)
@@ -77,16 +83,15 @@ struct MapView: View {
         .onAppear {
             CLLocationManager().requestWhenInUseAuthorization()
             if (startingPointText != nil || destinationPointText != nil){
-                print("starting: \(startingPointText)")
-                print("destination: \(destinationPointText)")
                 mapVM.vPath = mapVM.findClassRoute(startingPointText: startingPointText!, destinationPointText: destinationPointText!, currentLocation: locationManagerVM.currentLocation)
             } else {
                 mapVM.vPath = mapVM.getSchoolBuildings()
             }
-           
         }
     }
 }
+
+
 
 //@available(iOS 17.0, *)
 

@@ -113,6 +113,13 @@ class MapVM: ObservableObject {
                             "J. Paul Leonard Library": 5
                          ]
     
+    let bathroomVertex : [String: Int] = [
+                            "Admissions": 0,
+                            "Burk Hall": 31,
+                            "Cesar Chavez Student Center": 13,
+                            "J. Paul Leonard Library": 5
+                         ]
+    
     func findClassRoute(startingPointText: String, destinationPointText: String, currentLocation: CLLocationCoordinate2D?) -> [Locations]{
         var pathResult: [Locations] = []
         let startingVertex : Int
@@ -140,6 +147,17 @@ class MapVM: ObservableObject {
         var buildings : [Locations] = []
         
         for location in locationVertex {
+            print("value: \(locations[location.value])")
+            buildings.insert(locations[location.value], at: 0)
+            print("")
+        }
+        return buildings
+    }
+    
+    func getBathroomBuildings() -> [Locations] {
+        var buildings : [Locations] = []
+        
+        for location in bathroomVertex {
             print("value: \(locations[location.value])")
             buildings.insert(locations[location.value], at: 0)
             print("")
@@ -229,11 +247,12 @@ class MapVM: ObservableObject {
     }
     
     
-    func annotateBuildings(i:Int)-> Annotation<Text, some View>{
+    func annotateCampusLocations(i:Int, image: String)-> Annotation<Text, some View>{
         return Annotation(vPath[i].name, coordinate: vPath[i].coordinate,
                     anchor: .bottom
         ) {
-            Image(systemName: "building.2.crop.circle.fill")
+            Image(systemName: image)
+//            Image(systemName: "building.2.crop.circle.fill")
                 .padding (4)
                 .foregroundStyle(.white)
                 .background(Color.indigo)
