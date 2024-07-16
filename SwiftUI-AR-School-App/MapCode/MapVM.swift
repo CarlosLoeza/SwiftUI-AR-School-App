@@ -154,6 +154,17 @@ class MapVM: ObservableObject {
         return buildings
     }
     
+    func getBathroomBuildings() -> [Locations] {
+        var buildings : [Locations] = []
+        
+        for location in bathroomVertex {
+            print("value: \(locations[location.value])")
+            buildings.insert(locations[location.value], at: 0)
+            print("")
+        }
+        return buildings
+    }
+    
 
     func findClosestLocationIndex(to userLocation: CLLocationCoordinate2D, from locations: [Locations]) -> Int? {
         guard !locations.isEmpty else { return nil }
@@ -236,7 +247,7 @@ class MapVM: ObservableObject {
     }
     
     
-    func annotateBuildings(i:Int, image: String)-> Annotation<Text, some View>{
+    func annotateCampusLocations(i:Int, image: String)-> Annotation<Text, some View>{
         return Annotation(vPath[i].name, coordinate: vPath[i].coordinate,
                     anchor: .bottom
         ) {
