@@ -167,15 +167,6 @@ struct DestinationView: View {
                                     UIApplication.shared.open(url)
                                 }
                             } 
-//                            VStack{
-//                                if let currentLocation = locationManagerVM.currentLocation {
-//                                    Text("Latitude: \(currentLocation.latitude)")
-//                                    Text("Longitude: \(currentLocation.longitude)")
-//                                } else {
-//                                    Text("Retrieving location...")
-//                                }
-//                            }
-//                            .background(.green)
                             Spacer()
                         }
                     }

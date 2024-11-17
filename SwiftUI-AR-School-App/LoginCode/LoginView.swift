@@ -32,7 +32,7 @@ struct LoginView: View {
                 .padding()
                 .background(Color(UIColor.systemGray6))
                 .cornerRadius(8.0)
-            .padding(.horizontal)
+                .padding(.horizontal)
         
                 
         

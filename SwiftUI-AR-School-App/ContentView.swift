@@ -22,7 +22,6 @@ struct ContentView: View {
         VStack {
             if !isSignIn {
                 LoginView(loginVM: LoginVM())
-                    .environmentObject(locationManagerVM)
             } else {
                 TabView(selection: $selectedTab) {
                     DestinationView(selectedTab: $selectedTab)
@@ -35,16 +34,20 @@ struct ContentView: View {
                     MapView(selectedTab: $selectedTab)
                         .tabItem {
                             Image(systemName: "map")
-//                            Image(systemName: "magnifyingglass")
                             Text("Map")
-                        }
+                        } 
                         .tag(1)
+                    
+                    Settings()
+                        .tabItem {
+                            Image(systemName: "gear")
+                            Text("Settings")
+                        }
+                        .tag(2)
                 }
                 .onAppear {
                     UITabBar.appearance().backgroundColor = .systemGray2
                 }
-//                DestinationView()
-//                    .environmentObject(locationManagerVM)
             }
         }
     }

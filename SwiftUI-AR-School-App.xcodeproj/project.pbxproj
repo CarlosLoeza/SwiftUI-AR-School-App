@@ -17,6 +17,7 @@
 		07526D782BC5C2DD00726F58 /* MapImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07526D772BC5C2DD00726F58 /* MapImageButton.swift */; };
 		075B1A1E2BA4CEBA002C67A9 /* AugmentedRealityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B1A1D2BA4CEBA002C67A9 /* AugmentedRealityView.swift */; };
 		075E17552C46F34700EA6495 /* MapIconBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E17542C46F34700EA6495 /* MapIconBar.swift */; };
+		075E17582C472D8C00EA6495 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E17572C472D8C00EA6495 /* Settings.swift */; };
 		0781D6672BAE077C00035C11 /* AugmentedRealityVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0781D6662BAE077C00035C11 /* AugmentedRealityVM.swift */; };
 		079FD6052B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6042B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift */; };
 		079FD6072B9A7010008E07EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079FD6062B9A7010008E07EA /* ContentView.swift */; };
@@ -69,6 +70,7 @@
 		07526D772BC5C2DD00726F58 /* MapImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapImageButton.swift; sourceTree = "<group>"; };
 		075B1A1D2BA4CEBA002C67A9 /* AugmentedRealityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityView.swift; sourceTree = "<group>"; };
 		075E17542C46F34700EA6495 /* MapIconBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapIconBar.swift; sourceTree = "<group>"; };
+		075E17572C472D8C00EA6495 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		0781D6662BAE077C00035C11 /* AugmentedRealityVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityVM.swift; sourceTree = "<group>"; };
 		079FD6012B9A7010008E07EA /* SwiftUI-AR-School-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftUI-AR-School-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		079FD6042B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI_AR_School_AppApp.swift; sourceTree = "<group>"; };
@@ -137,6 +139,14 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		075E17562C472D8100EA6495 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				075E17572C472D8C00EA6495 /* Settings.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		07790AD42BA27225009C017E /* ARCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,18 +180,19 @@
 		079FD6032B9A7010008E07EA /* SwiftUI-AR-School-App */ = {
 			isa = PBXGroup;
 			children = (
+				075E17562C472D8100EA6495 /* Settings */,
 				07C76D592C3DE42B008F7069 /* LocationManager */,
-				072B08FF2C24DE6900178C61 /* Info.plist */,
-				07C76D552C2CE66A008F7069 /* GoogleService-Info.plist */,
 				072B08F52C24DCB700178C61 /* Helper */,
 				07B81FC12BF6ED1500CE0C6A /* LoginCode */,
 				07790AD42BA27225009C017E /* ARCode */,
 				079FD67D2B9FAB08008E07EA /* MapCode */,
 				079FD6352B9EB589008E07EA /* DestinationCode */,
 				079FD6302B9B8B80008E07EA /* Components */,
-				079FD6042B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift */,
-				079FD6062B9A7010008E07EA /* ContentView.swift */,
+				072B08FF2C24DE6900178C61 /* Info.plist */,
+				07C76D552C2CE66A008F7069 /* GoogleService-Info.plist */,
 				079FD6082B9A7012008E07EA /* Assets.xcassets */,
+				079FD6062B9A7010008E07EA /* ContentView.swift */,
+				079FD6042B9A7010008E07EA /* SwiftUI_AR_School_AppApp.swift */,
 				079FD60A2B9A7012008E07EA /* Preview Content */,
 			);
 			path = "SwiftUI-AR-School-App";
@@ -215,6 +226,7 @@
 		079FD6302B9B8B80008E07EA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				07C76DE12C45D68C008F7069 /* MapIconButton.swift */,
 				079FD6312B9B8BA6008E07EA /* DestinationPickerWheel.swift */,
 				07526D772BC5C2DD00726F58 /* MapImageButton.swift */,
 				07C76DA82C407B55008F7069 /* LocationButton.swift */,
@@ -237,7 +249,6 @@
 			children = (
 				079FD67E2B9FAB17008E07EA /* MapView.swift */,
 				079FD6802B9FAB21008E07EA /* MapVM.swift */,
-				07C76DE12C45D68C008F7069 /* MapIconButton.swift */,
 				075E17542C46F34700EA6495 /* MapIconBar.swift */,
 			);
 			path = MapCode;
@@ -423,6 +434,7 @@
 				079FD6072B9A7010008E07EA /* ContentView.swift in Sources */,
 				07B81FCF2BF6EF7300CE0C6A /* LoginResponse.swift in Sources */,
 				079FD6812B9FAB21008E07EA /* MapVM.swift in Sources */,
+				075E17582C472D8C00EA6495 /* Settings.swift in Sources */,
 				075B1A1E2BA4CEBA002C67A9 /* AugmentedRealityView.swift in Sources */,
 				07B81FC32BF6ED5F00CE0C6A /* LoginView.swift in Sources */,
 				07526D782BC5C2DD00726F58 /* MapImageButton.swift in Sources */,
